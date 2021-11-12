@@ -46,7 +46,7 @@ const Home = () => {
                 <div className="main-blogs">
                     <div className="main-blog anim">
                         <div className="main-blog__title">
-                            SELECT person FROM world where someone LIKE '%<i className="text-danger">you</i>%';
+                            SELECT person FROM world WHERE someone LIKE '%<i className="text-danger">you</i>%';
                         </div>
                         <div className="main-blog__author">
                             <div className="author-detail">
