@@ -10,7 +10,10 @@ import Header from './components/Common/Header/Header'
 import Error404 from './components/Error/404'
 import Slider from './components/Slider/Slider'
 
-import { Home, Single, SearchDetail} from './pages/index'
+import { Home, 
+  Single, 
+  SearchDetail, 
+  Movies, Popular} from './pages/index'
 
 function App() {
   
@@ -38,6 +41,13 @@ function App() {
             <Route path="/search">
               <SearchDetail></SearchDetail>
             </Route>
+            <Route exact path="/movies">
+              <Movies></Movies> 
+            </Route>
+            <Route path="/movies/popular">
+              <Popular></Popular>
+            </Route>
+            
             <Route path="*">
               <Error404></Error404>
             </Route>

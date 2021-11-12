@@ -180,7 +180,15 @@ a {
     border-radius: 15px;
     box-shadow: 0 0 10px #0000003d;
 }
-
+.devmode {
+    font-weight: bold;
+    font-size: 10px;
+    color: #fff;
+    margin-left: 10px;
+    padding: 0 3px;
+    background: var(--danger);
+    border-radius: 10px;
+}
 
 
 .header-wrapper.default {

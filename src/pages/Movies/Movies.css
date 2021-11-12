@@ -1,0 +1,35 @@
+#movies-detail {
+    margin-top: 95px;
+}
+
+.tabs {
+    margin: -20px 0 10px;
+    line-height: 2;
+}
+.tabs ul {
+    padding: 0;
+    display: inline-block;
+    list-style-type: none;
+}
+.tabs ul li {
+    display: inline-block;
+    margin-right: 4px;
+    margin-top: 4px;
+}
+.tabs .tab-link {
+    font-size: 20px;
+    color: inherit;
+    padding: 8px 10px;
+    border-radius: 6px;
+    width: 100%;
+    font-size: 12px;
+    cursor: pointer;
+    background-color: var(--icon-bgcolor);
+    box-shadow: var(--default-box-shadow);
+}
+.tabs .tab-link.active {
+    font-weight: 700;
+    color: #fff;
+    background-color: var(--default-color);
+    box-shadow: var(--default-shadowBox);
+}
