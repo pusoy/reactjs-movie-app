@@ -1,0 +1,33 @@
+@media only screen and (max-width: 1100px) {
+    #homepage .main-blog {
+        background-size: 33% !important;
+        background-position-x: 100% !important;
+        background-blend-mode: overlay !important;
+    }
+}
+@media only screen and (max-width: 800px) {
+    #toggle-btn {
+        display: block !important;
+    }
+    #sidebar.closed {
+        transform: translateX(-250px);
+    }
+    #main-container {
+        margin-left: 0; 
+    }
+}
+@media only screen and (max-width: 600px) {
+    #app-header-desktop {
+        background: var(--theme-bg);
+        border-bottom-right-radius: 35px;
+        border-bottom-left-radius: 35px;
+    }
+    .searchbar {
+        grid-template-columns: 100% !important;
+    }
+    #homepage .main-blog {
+        background-size: 65% !important;
+        background-position-x: 100% !important;
+        background-position-y: 100% !important;
+    }
+}

@@ -1,0 +1,164 @@
+#homepage {
+    margin-top: 95px;
+}
+
+#homepage .home {
+    font-size: 30px;
+    font-weight: 700;
+    padding-bottom: 20px;
+    text-align: left;
+}
+
+#homepage .main-blog {
+    background-image: url(./../../assets/img/img3.png);
+    z-index: 1;
+    -webkit-background-size: 17%;
+    -moz-background-size: 17%;
+    -o-background-size: 17%;
+    background-size: 45%;
+    background-color: #4784ff;
+    background-position-x: 95%;
+    background-blend-mode: overlay;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    padding: 30px;
+    border-radius: 20px;
+    align-self: stretch;
+    overflow: hidden;
+    position: relative;
+    transition: background .3s;
+    background-repeat: no-repeat;
+    box-shadow: 0 6px 30px -10px #4a74c9;
+}
+#homepage .main-blog__title {
+    font-size: 27px;
+    max-width: 16ch;
+    font-weight: 800;
+    letter-spacing: 1px;
+    color: #fff;
+    margin-bottom: 30px;
+}
+#homepage .main-blog__author {
+    padding-bottom: 10px;
+}
+
+#homepage .main-blog__author, #homepage .main-blogs {
+    display: flex;
+    align-items: center;
+    text-align: left;
+}
+
+#homepage .author-name {
+    font-size: 15px;
+    color: #fff;
+    font-weight: 500;
+    margin-bottom: 8px;
+}
+
+#homepage .author-info {
+    font-size: 13px;
+    font-weight: 400;
+    color: #fff;
+}
+
+#homepage .seperate {
+    width: 3px;
+    height: 3px;
+    display: inline-block;
+    vertical-align: middle;
+    border-radius: 50%;
+    background-color: #fff;
+    margin: 0 6px;
+}
+
+.poster-grid {
+    display: grid;
+    grid-gap: 20px 20px;
+    grid-template-columns: repeat(auto-fill,minmax(150px,1fr));
+}
+.poster-card {
+    display: block;
+}
+.poster-card .poster {
+    border-radius: 15px;
+    background-color: transparent;
+    margin: -1px;
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,.3);
+    width: 100%;
+    min-height: 195px;
+    transition: all .2s ease;
+    overflow: hidden;
+}
+.poster-card .poster:hover {
+    opacity: .7;
+    transition: all .4s ease;
+    transform: scale(1.1);
+}
+.poster-card .overlay-text {
+    display: inline-block;
+    position: relative;
+}
+.poster-card .overlay-text-rating {
+    position: absolute;
+    background: rgba(21,13,13,.44);
+    padding: 3px 8px;
+    font-size: 12px;
+    border-radius: 6px;
+    right: 5px;
+    bottom: 15px;
+    color: #fff;
+}
+.poster-card .title {
+    font-size: 1em;
+    font-weight: 800;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    display: block;
+}
+.poster-card .meta {
+    font-size: .9em;
+    height: 50px;
+    display: block;
+    overflow: hidden;
+    color: #6c757d;
+}
+.poster-card .dot {
+    width: 3px;
+    height: 3px;
+    vertical-align: 2px;
+    border-radius: 50%;
+    display: inline-block;
+    background: #5e5e5e;
+    content: "";
+    margin: 0 5px;
+}
+.poster-card .type {
+    display: inline-block;
+    float: right;
+    font-style: normal;
+    border: 1px solid #868e96;
+    border-radius: 3px;
+    padding: 0 3px;
+    font-size: .8em;
+}
+.more h6 {
+    padding: 10px 15px;
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: 5px;
+    font-weight: bold;
+    font-size: 10px;
+    border-radius: 20px;
+    line-height: 100%;
+    max-width: 190px;
+    border-left: 6px solid #333;
+    cursor: pointer;
+    border-right: 6px solid #333;
+    margin: 0 auto 25px;
+}
+.more h6:hover {
+    background: var(--active-color);
+    color: #fff;
+}

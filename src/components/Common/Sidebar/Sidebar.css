@@ -1,0 +1,103 @@
+#sidebar {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    width: 250px;
+    z-index: 9999;
+    transition-duration: .2s;
+    overflow-y: auto;
+    align-items: center;
+    overflow-x: hidden;
+    
+}
+
+#sidebar .sidebar .logo-expand {
+    text-decoration: none;
+    font-size: 19px;
+    font-weight: 600;
+    line-height: 34px;
+    position: sticky;
+    top: 0;
+    text-align: left;
+    color: var(--theme-bg-color)
+}
+
+#sidebar .side-wrapper {
+    border-bottom: 1px solid var(--border-color);
+    padding: 36px 0;
+    width: 145px;
+}
+
+#sidebar .sidebar {
+    /* width: 220px; */
+    height: 100%;
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+    flex-shrink: 0;
+    transition-duration: .2s;
+    overflow-y: auto;
+    overflow-x: hidden;
+} 
+
+#sidebar .side-title {
+    font-size: 12px;
+    letter-spacing: .07em;
+    margin-bottom: 24px;
+    text-align: left;
+    color: var(--body-color);
+}
+body #sidebar {
+    /* background: var(--theme-bg); */
+    background-image: url(./../../../assets/img/sidebar.jpg);
+    background-size: cover;
+} 
+
+#sidebar .sidebar-link.is-active, #sidebar .sidebar-link:hover {
+    font-weight: 600;
+    color: #4784ff;
+}
+
+#sidebar .side-menu {
+    display: flex;
+    flex-direction: column;
+}
+
+#sidebar .side-menu a {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    color: #e7e7e7;
+    margin-bottom: 20px;
+    font-weight: 500;
+    font-size: 16px; 
+}
+#sidebar .side-menu a:last-child {
+    margin-bottom: 0;
+}
+
+#sidebar .sidebar-link .material-icons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 17px;
+    padding: 8px;
+    background-color: var(--icon-bgcolor);
+    transition: box-shadow .15s ease;
+    flex-shrink: 0;
+    margin-right: 16px;
+    color: var(--body-color);
+    border-radius: 12px;
+    box-shadow: 0 3px 6px 0 RGB(0 0 0/10%),0 1px 3px 0 RGB(0 0 0/8%); 
+}
+
+#sidebar .sidebar-link .material-icons {
+    cursor: pointer;
+    transition: .2s;
+}
+#sidebar .sidebar-link.is-active .material-icons, #sidebar .sidebar-link:hover .material-icons {
+    background: #4784ff;
+    box-shadow: 0 3px 6px 0 RGB(0 0 0/10%),0 1px 3px 0 RGB(0 0 0/8%);
+    color: #fff;
+} 

@@ -1,0 +1,15 @@
+.container {
+    padding: 0 var(--container-padding);
+    font-weight: 500;
+}
+#not-found-page {
+    text-align: center;
+    padding-top: 100px;
+}
+#not-found-page h1 {
+    font-size: 7em;
+    margin: 0;
+}
+#not-found-page p {
+    margin-bottom: 30px;
+}
