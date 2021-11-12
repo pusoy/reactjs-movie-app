@@ -9,6 +9,7 @@ const axios = require('axios')
 let lastUpdate
 
 const Header = () => {
+    let location = useLocation()
     const [text, setText] = useState("");
 
     const handleClick = (e) => { 
@@ -38,11 +39,11 @@ const Header = () => {
  
     const onFormSubmit = e => {
         e.preventDefault();
-        let newLink = `/search?query=${text}`
+        let newLink = `search?query=${text}`
         window.location.href = `${newLink}` 
     }
 
-   
+    console.log(location)
 
     
 
