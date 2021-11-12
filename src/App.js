@@ -54,7 +54,7 @@ function App() {
           </Switch> 
         </div>
         <div className="notification">
-          <span>On going series movies.</span>
+          <span>On going TV-Shows.</span>
         </div>
       </div>
     </Router>
