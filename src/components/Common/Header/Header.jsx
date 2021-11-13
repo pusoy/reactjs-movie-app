@@ -1,15 +1,15 @@
 import React, { useState } from "react"
 import {
-    useLocation
+    useLocation, 
+    useHistory 
 } from "react-router-dom"
 import './Header.css' 
 const axios = require('axios')
 
-
 let lastUpdate
-
 const Header = () => {
     let location = useLocation()
+    let history = useHistory()
     const [text, setText] = useState("");
 
     const handleClick = (e) => { 
@@ -27,20 +27,20 @@ const Header = () => {
     const handleChangeQuery = (e) => {
         let newLink = `/search?query=${e.target.value}`
         setText(e.target.value)
-        // lastUpdate = Date.now()  
+        lastUpdate = Date.now()  
         
-        // setTimeout(() => {
-        //     const diff = Date.now() - lastUpdate;
-        //     if (diff > 500) {
-        //         window.location.href = `${newLink}`
-        //     }
-        // }, 1000);
+        setTimeout(() => {
+            const diff = Date.now() - lastUpdate;
+            if (diff > 500) {
+                history.push(newLink) 
+            }
+        }, 1000);
     } 
  
     const onFormSubmit = e => {
-        e.preventDefault();
-        let newLink = `search?query=${text}`
-        window.location.href = `${newLink}` 
+        e.preventDefault(); 
+        let newLink = `/search?query=${text}`
+        history.push(newLink) 
     }
  
 

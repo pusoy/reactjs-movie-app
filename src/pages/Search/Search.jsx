@@ -27,17 +27,18 @@ const SearchDetail = () => {
   
   useEffect(() => {
     // Update the document title using the browser API
+    console.log(query)
     const getSearch = async () => {
       try {
         const response = await axios.get(`https://api.themoviedb.org/3/search/multi?api_key=4ef0ef4242c8e5901d432415e7a824b9&${query}&page=${counter}`)
         setsearchData(response.data)
-        setsearchResult([...searchResult, ...response.data.results])
+        counter == 1 ? setsearchResult(response.data.results) : setsearchResult([...searchResult, ...response.data.results])
       } catch (error) {
         console.error(error)
       }
     }
     getSearch()
-  }, [counter]);
+  }, [counter, location]);
 
   console.log(searchResult)
 
@@ -64,9 +65,9 @@ const SearchDetail = () => {
           {
             searchResult.map(res => { 
               let date, title, posterLink
-
+              console.log(res)
               date = res.release_date != undefined ? date = new Date(res.release_date) : res.first_air_date != undefined ? new Date(res.first_air_date) : '---'
-              title = res.original_title != undefined ? res.original_title : res.original_name != undefined ? res.original_name : res.known_for[0].original_title
+              title = res.original_title != undefined ? res.original_title : res.original_name != undefined ? res.original_name : res.known_for[0] > 0 ? res.known_for[0].original_title : res.name
               posterLink = res.poster_path != undefined ? `https://image.tmdb.org/t/p/original${res.poster_path}` : noPoster
 
               const posterAlt = `Poster for ${res.original_name}`
