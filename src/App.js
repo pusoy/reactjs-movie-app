@@ -7,13 +7,12 @@ import {
 import './App.css'
 import Sidebar from './components/Common/Sidebar/Sidebar'
 import Header from './components/Common/Header/Header'
-import Error404 from './components/Error/404'
-import Slider from './components/Slider/Slider'
+import Error404 from './components/Error/404' 
 
 import { Home, 
   Single, 
   SearchDetail, 
-  Movies, Popular} from './pages/index'
+  Movies} from './pages/index'
 
 function App() {
   
@@ -43,10 +42,7 @@ function App() {
             </Route>
             <Route exact path="/movies">
               <Movies></Movies> 
-            </Route>
-            <Route path="/movies/popular">
-              <Popular></Popular>
-            </Route>
+            </Route> 
             
             <Route path="*">
               <Error404></Error404>

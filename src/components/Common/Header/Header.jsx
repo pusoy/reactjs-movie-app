@@ -42,8 +42,7 @@ const Header = () => {
         let newLink = `search?query=${text}`
         window.location.href = `${newLink}` 
     }
-
-    console.log(location)
+ 
 
     
 

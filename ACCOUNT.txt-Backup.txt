@@ -1,0 +1,14 @@
+http://www.omdbapi.com/
+
+Email: pusoy.developer@gmail.com 
+
+---------------- EMAIL ----------------
+
+Here is your key: 6626476e
+
+Please append it to all of your API requests,
+
+OMDb API: http://www.omdbapi.com/?i=tt3896198&apikey=6626476e
+
+Click the following URL to activate your key: http://www.omdbapi.com/apikey.aspx?VERIFYKEY=e25fee50-c642-4f29-b49e-da0a5a8e1822
+If you did not make this request, please disregard this email.
