@@ -6,16 +6,7 @@ import React, { useState, useEffect } from "react"
 import "./Search.css"
 import noPoster from "./../../assets/img/poster-holder.jpg"
 const axios = require('axios');
-
-const Search = (query) => {
-  let location = useLocation();
-  if (query != ""){
-    console.log(location);
-    let newLink = `/search?query=${query}`;
-    window.location.href = `${newLink}`
-  } 
-}
-    // https://api.themoviedb.org/3/search/multi?api_key=4ef0ef4242c8e5901d432415e7a824b9&query=test&page=1
+ 
 const SearchDetail = () => {
   const [searchData, setsearchData] = useState({})
   const [searchResult, setsearchResult] = useState([])
@@ -137,4 +128,4 @@ const SearchDetail = () => {
 }
 
  
-export { SearchDetail, Search}
+export { SearchDetail }
