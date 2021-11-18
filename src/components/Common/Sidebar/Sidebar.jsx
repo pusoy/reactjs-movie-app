@@ -28,7 +28,7 @@ const Sidebar = () => {
                         </div>
                     </div>
                 </section>
-            </div> 
+            </div>
         </div>
     )
 }

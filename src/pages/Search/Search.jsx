@@ -3,6 +3,7 @@ import {
   Link
 } from "react-router-dom";
 import React, { useState, useEffect } from "react"
+import Config from "./../../api/config"
 import "./Search.css"
 import noPoster from "./../../assets/img/poster-holder.jpg"
 const axios = require('axios');
@@ -21,7 +22,7 @@ const SearchDetail = () => {
     console.log(query)
     const getSearch = async () => {
       try {
-        const response = await axios.get(`https://api.themoviedb.org/3/search/multi?api_key=4ef0ef4242c8e5901d432415e7a824b9&${query}&page=${counter}`)
+        const response = await axios.get(`https://api.themoviedb.org/3/search/multi?api_key=${Config().API}&${query}&page=${counter}`)
         setsearchData(response.data)
         counter == 1 ? setsearchResult(response.data.results) : setsearchResult([...searchResult, ...response.data.results])
       } catch (error) {
@@ -82,44 +83,9 @@ const SearchDetail = () => {
                   </Link>
                 </div>
               )
-            })
-            // searchResult.map((res) => {
-            //   // console.log(res)
-            //   const date = new Date(res.release_date)
-            //   const poster = `https://image.tmdb.org/t/p/original${res.poster_path}`
-            //   const movieLink = `movie/${res.id}`
-            //   return (
-            //     <div key={res.id}>
-            //       <Link to={movieLink} className="poster-card" >
-            //         <img className="poster img-with-fb no-js-1MJNcPZy46hIy2CmSqOeru0yr5C" src={poster} cached="true" loading="lazy" alt="Poster for Venom: Let There Be Carnage" />
-            //         <div className="overlay-text">
-            //           <div className="overlay-text-rating">HD</div>
-            //         </div>
-            //         <p className="title">{res.original_title}</p>
-            //         <div className="meta">
-            //           {date.getFullYear()} <i className="dot"></i> {res.vote_average}
-            //           <i className="type">Movie</i>
-            //         </div>
-            //       </Link>
-            //     </div>
-            //   )
-            // })
+            }) 
           }
-          {/* <div>
-            <Link to="/foo" className="poster-card" >
-              <img className="poster img-with-fb no-js-1MJNcPZy46hIy2CmSqOeru0yr5C" src="https://image.tmdb.org/t/p/w342/zZMebBIsNipjFhJFv0zjm0KQaBF.jpg" cached="true" loading="lazy" alt="Poster for Venom: Let There Be Carnage" />
-              <div className="overlay-text">
-                <div className="overlay-text-rating">HD</div>
-              </div>
-              <p className="title">The Beta Test</p>
-              <div className="meta">
-                2021
-                <i className="dot"></i>
-                5.8
-                <i className="type">Movie</i>
-              </div>
-            </Link>
-          </div> */}
+           
         </div>
         <div className="more"><h6 onClick={handleLoadMore}>... Load More ...</h6></div>
       </section>

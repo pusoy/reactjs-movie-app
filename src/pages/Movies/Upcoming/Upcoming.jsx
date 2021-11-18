@@ -7,8 +7,6 @@ const axios = require('axios');
 
 const ACTIONS = {
     INCREMENT: 'increment',
-    RESET: 'reset',
-    CHANGE_COUNT: 'change-count',
     POPULAR: 'popular'
 }
 
@@ -17,12 +15,12 @@ function reducer(state, action) {
         case ACTIONS.INCREMENT: 
             return { 
                 count: state.count + 1,
-                popularList: state.popularList
+                upcomingList: state.upcomingList
             }
         case ACTIONS.POPULAR:
             return { 
                 count: state.count,
-                popularList: action.payload.result 
+                upcomingList: action.payload.result 
             }
         default:
             return state
@@ -30,14 +28,14 @@ function reducer(state, action) {
 }
 
 
-const Popular = () => { 
-    const [state, dispatch] = useReducer(reducer, { count: 1, popularList: [] })
+const Upcoming = () => { 
+    const [state, dispatch] = useReducer(reducer, { count: 1, upcomingList: [] })
 
     useEffect(() => {
         const getMovieList = async () => {
             try {
-                const response = await axios.get(`https://api.themoviedb.org/3/movie/popular?api_key=${Config().API}&language=en-US&page=${state.count}`)
-                dispatch({ type: ACTIONS.POPULAR, payload: { result: state.count == 1 ? response.data.results : [...state.popularList, ...response.data.results] } })
+                const response = await axios.get(`https://api.themoviedb.org/3/movie/upcoming?api_key=${Config().API}&language=en-US&page=${state.count}`)
+                dispatch({ type: ACTIONS.POPULAR, payload: { result: state.count == 1 ? response.data.results : [...state.upcomingList, ...response.data.results] } })
             } catch (error) {
                 console.error(error);
             }
@@ -49,7 +47,7 @@ const Popular = () => {
         <div id="popular-detail">
             <div className="poster-grid">
                 {
-                    state.popularList.map(res => {
+                    state.upcomingList.map(res => {
                         // console.log(res) 
                         const date = new Date(res.release_date)
                         const poster = `https://image.tmdb.org/t/p/original${res.poster_path}`
@@ -77,4 +75,4 @@ const Popular = () => {
     )
 }
 
-export default Popular
+export default Upcoming

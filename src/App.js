@@ -14,6 +14,8 @@ import { Home,
   SearchDetail, 
   Movies} from './pages/index'
 
+import UseReducer from './_tests/UseReducer/UseReducer'
+
 function App() {
   
   const handleClick = (e) => {
@@ -42,11 +44,13 @@ function App() {
             </Route>
             <Route exact path="/movies">
               <Movies></Movies> 
-            </Route> 
-            
+            </Route>   
+            <Route exact path="/reducer">
+              <UseReducer></UseReducer>
+            </Route>
             <Route path="*">
               <Error404></Error404>
-            </Route>
+            </Route> 
           </Switch> 
         </div>
         <div className="notification">

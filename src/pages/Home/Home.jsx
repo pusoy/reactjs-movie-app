@@ -2,6 +2,7 @@ import {
     Link
 } from "react-router-dom";
 import React, { useState, useEffect } from "react"
+import Config from "./../../api/config"
 import "./Home.css"
 const axios = require('axios');
 
@@ -19,7 +20,7 @@ const Home = () => {
         // Update the document title using the browser API
         const getMovieList = async () => {
             try {
-                const response = await axios.get(`https://api.themoviedb.org/3/movie/popular?api_key=4ef0ef4242c8e5901d432415e7a824b9&language=en-US&page=${counter}`)
+                const response = await axios.get(`https://api.themoviedb.org/3/movie/popular?api_key=${Config().API}&language=en-US&page=${counter}`)
                 setMovieList([...movieList, ...response.data.results])
             } catch (error) {
                 console.error(error);
@@ -52,8 +53,10 @@ const Home = () => {
                             <div className="author-detail">
                                 <div className="author-name">Support Me.
                                 </div>
-                                <div className="author-info"><a href="mailto:japusoy@gmail.com">Gcash</a>
-                                    {/* <span className="seperate"></span> Paypal  */}
+                                <div className="author-info donate">
+                                    <a href="tel:09664505714">Gcash</a>
+                                    <span className="seperate"></span>
+                                    <a href="https://www.paypal.me/JaffyMaglinte" target="_blank">Paypal</a>
                                 </div>
                             </div>
                         </div>
