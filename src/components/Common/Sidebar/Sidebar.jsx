@@ -33,13 +33,14 @@ const Sidebar = () => {
             <div id="sidebar-content">
                 <section>
                     <div className="sidebar">
-                        <a href="foo" className="logo-expand">MovieCloud</a>
+                        <a href="foo" className="logo-expand">WATCH</a>
                         <div className="side-wrapper">
                             <div className="side-title">MENU</div>
                             <div className="side-menu">
                                 {/* <a  href="/test"> <span className="material-icons"> home </span> Home</a> */}
                                 <Link to="/" className={activeMenu === 'Home' ? 'sidebar-link is-active' : 'sidebar-link'} onClick={() => { handleClick("Home") }}><span className="material-icons"> home </span> Home</Link>
-                                <Link to="/movies" className={activeMenu === 'Movies' ? 'sidebar-link is-active' : 'sidebar-link'} onClick={() => { handleClick("Movies") }}><span className="material-icons"> video_library </span> Movies <small className="devmode">dev</small></Link>
+                                <Link to="/movies" className={activeMenu === 'Movies' ? 'sidebar-link is-active' : 'sidebar-link'} onClick={() => { handleClick("Movies") }}><span className="material-icons"> video_library </span> Movies</Link>
+                                {/*  <small className="devmode">dev</small> */}
                                 {/* <Link to="/roulette" className="sidebar-link"> <span className="material-icons"> shuffle_on </span> Roulette</Link>
                                 <a className="sidebar-link" href="/slider"> <span className="material-icons"> slideshow </span> Slider</a>
                                 <a className="sidebar-link" href="/slider"> <span className="material-icons"> slideshow </span> Slider</a> */}
