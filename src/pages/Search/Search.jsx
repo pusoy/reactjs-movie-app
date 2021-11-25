@@ -24,7 +24,7 @@ const SearchDetail = () => {
       try {
         const response = await axios.get(`https://api.themoviedb.org/3/search/multi?api_key=${Config().API}&${query}&page=${counter}`)
         setsearchData(response.data)
-        counter == 1 ? setsearchResult(response.data.results) : setsearchResult([...searchResult, ...response.data.results])
+        counter === 1 ? setsearchResult(response.data.results) : setsearchResult([...searchResult, ...response.data.results])
       } catch (error) {
         console.error(error)
       }
@@ -39,7 +39,7 @@ const SearchDetail = () => {
     setCounter(counter + 1)
   }
 
-  if (Object.keys(searchResult).length == 0){
+  if (Object.keys(searchResult).length === 0){
     return (
       <div id="searchpage" className="container">
         <p>Looks like something went wrong :(<br></br></p>
@@ -58,9 +58,9 @@ const SearchDetail = () => {
             searchResult.map(res => { 
               let date, title, posterLink
               console.log(res)
-              date = res.release_date != undefined ? date = new Date(res.release_date) : res.first_air_date != undefined ? new Date(res.first_air_date) : '---'
-              title = res.original_title != undefined ? res.original_title : res.original_name != undefined ? res.original_name : res.known_for[0] > 0 ? res.known_for[0].original_title : res.name
-              posterLink = res.poster_path != undefined ? `https://image.tmdb.org/t/p/original${res.poster_path}` : noPoster
+              date = res.release_date !== undefined ? date = new Date(res.release_date) : res.first_air_date !== undefined ? new Date(res.first_air_date) : '---'
+              title = res.original_title !== undefined ? res.original_title : res.original_name !== undefined ? res.original_name : res.known_for[0] > 0 ? res.known_for[0].original_title : res.name
+              posterLink = res.poster_path !== undefined ? `https://image.tmdb.org/t/p/original${res.poster_path}` : noPoster
 
               const posterAlt = `Poster for ${res.original_name}`
               const movieLink = `movie/${res.id}`
@@ -75,9 +75,9 @@ const SearchDetail = () => {
                     </div>
                     <p className="title">{title}</p>
                     <div className="meta">
-                      { date == '---' ? '---' : isNaN(date.getFullYear()) ? "----" : date.getFullYear()}
+                      { date === '---' ? '---' : isNaN(date.getFullYear()) ? "----" : date.getFullYear()}
                       <i className="dot"></i>
-                      {res.vote_average != undefined ? res.vote_average : 0}
+                      {res.vote_average !== undefined ? res.vote_average : 0}
                       <i className="type">Movie</i>
                     </div>
                   </Link>

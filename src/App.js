@@ -3,7 +3,7 @@ import {
   BrowserRouter as Router,
   Switch,
   Route
-} from "react-router-dom";
+} from "react-router-dom"; 
 import './App.css'
 import Sidebar from './components/Common/Sidebar/Sidebar'
 import Header from './components/Common/Header/Header'
@@ -16,12 +16,13 @@ import { Home,
 
 import UseReducer from './_tests/UseReducer/UseReducer'
 
-function App() {
+function App() { 
   
-  const handleClick = (e) => {
+  const handleClickApp = (e) => {
     e.preventDefault() 
     let sidebar = document.getElementById('sidebar')
     let overlay = document.getElementById('overlay')
+    
 
     sidebar.classList.remove('open')
     sidebar.classList.add('closed')
@@ -29,10 +30,11 @@ function App() {
     overlay.classList.remove('open')
     overlay.classList.add('closed') 
   }
+  
   return (
     <Router>
       <div className="App">
-        <div id="overlay" className="closed" onClick={handleClick}></div>
+        <div id="overlay" className="closed" onClick={handleClickApp}></div>
         <Sidebar></Sidebar>
         <div id="main-container">
           <Header></Header>
@@ -45,9 +47,8 @@ function App() {
             <Route exact path="/movies">
               <Movies></Movies> 
             </Route>   
-            <Route exact path="/reducer">
-              <UseReducer></UseReducer>
-            </Route>
+            <Route exact path="/reducer"> <UseReducer></UseReducer> </Route>
+
             <Route path="*">
               <Error404></Error404>
             </Route> 

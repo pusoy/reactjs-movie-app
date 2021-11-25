@@ -1,0 +1,54 @@
+.genre-detail {
+    display: grid;
+    grid-gap: 20px;
+    grid-template-columns: repeat(auto-fill,minmax(110px,1fr));
+    text-align: center;
+    margin: 0 auto 25px;
+}
+.genre-detail .genre-box {
+    border: 1px solid #33333336;
+    border-radius: 9px;
+    padding: 5px 5px;
+    border-top: 3px solid var(--default-color);
+    font-size: 12px;
+    box-shadow: 0 0 10px #0000001f;
+    transition: all .2s ease;
+}
+
+.genre-detail .genre-box:hover {
+    background: var(--default-color);
+    color: #fff;
+    cursor: pointer;
+}
+
+.is-genre-active {
+    background: var(--default-color);
+    color: var(--white);
+}
+
+.genre-banner {
+    height: 220px;
+    width: 100%;
+    border-radius: 20px;
+    box-shadow: 0 6px 30px -10px #4a74c9;
+    overflow: hidden;
+    position: relative;
+    display: flex; 
+    justify-content: center;
+    align-items: center;
+    gap: 25px;
+    background: #4784ff;
+}
+.genre-banner::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    background: linear-gradient(90deg, rgb(71 132 255 / 31%) 3%, rgb(255 71 115 / 36%) 97%);
+}
+.genre-banner img {
+    max-width: 100%;
+    width: 8vw;
+}

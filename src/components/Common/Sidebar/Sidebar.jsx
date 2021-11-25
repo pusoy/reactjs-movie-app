@@ -1,14 +1,33 @@
 
-import React, { useState } from "react"
+import React, { useState, useEffect } from "react"
 import './Sidebar.css'
 import {
     Link
 } from "react-router-dom"
 
-
-
+const images = {
+    fireboy: "images/fire-boy.gif"
+}
+console.log(images.fireboy)
 const Sidebar = () => {
     const [activeMenu, setActiveMenu] = useState()
+    useEffect(() => {
+        window.scrollTo({ top: 0, behavior: 'smooth' })
+    }, [activeMenu])
+    
+    let handleClick = str => { 
+        setActiveMenu(str)
+        let sidebar = document.getElementById('sidebar')
+        let overlay = document.getElementById('overlay')
+
+
+        sidebar.classList.remove('open')
+        sidebar.classList.add('closed')
+
+        overlay.classList.remove('open')
+        overlay.classList.add('closed') 
+    }
+
     return (
         <div id="sidebar" className="closed">
             <div id="sidebar-content">
@@ -19,13 +38,14 @@ const Sidebar = () => {
                             <div className="side-title">MENU</div>
                             <div className="side-menu">
                                 {/* <a  href="/test"> <span className="material-icons"> home </span> Home</a> */}
-                                <Link to="/" className={activeMenu == 'Home' ? 'sidebar-link is-active' : 'sidebar-link'} onClick={() => { setActiveMenu('Home') }}><span className="material-icons"> home </span> Home</Link>
-                                <Link to="/movies" className={activeMenu == 'Movies' ? 'sidebar-link is-active' : 'sidebar-link'} onClick={() => { setActiveMenu('Movies') }}><span className="material-icons"> video_library </span> Movies <small className="devmode">dev</small></Link>
+                                <Link to="/" className={activeMenu === 'Home' ? 'sidebar-link is-active' : 'sidebar-link'} onClick={() => { handleClick("Home") }}><span className="material-icons"> home </span> Home</Link>
+                                <Link to="/movies" className={activeMenu === 'Movies' ? 'sidebar-link is-active' : 'sidebar-link'} onClick={() => { handleClick("Movies") }}><span className="material-icons"> video_library </span> Movies <small className="devmode">dev</small></Link>
                                 {/* <Link to="/roulette" className="sidebar-link"> <span className="material-icons"> shuffle_on </span> Roulette</Link>
                                 <a className="sidebar-link" href="/slider"> <span className="material-icons"> slideshow </span> Slider</a>
                                 <a className="sidebar-link" href="/slider"> <span className="material-icons"> slideshow </span> Slider</a> */}
                             </div>
                         </div>
+                        <img src={images.fireboy} className="animated-gif" />
                     </div>
                 </section>
             </div>
