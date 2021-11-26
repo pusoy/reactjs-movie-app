@@ -20,7 +20,7 @@ const Home = () => {
         // Update the document title using the browser API
         const getMovieList = async () => {
             try {
-                const response = await axios.get(`https://api.themoviedb.org/3/movie/popular?api_key=${Config().API}&language=en-US&page=${counter}`)
+                const response = await axios.get(`https://api.themoviedb.org/3/movie/now_playing?api_key=${Config().API}&language=en-US&page=${counter}`)
                 setMovieList([...movieList, ...response.data.results])
             } catch (error) {
                 console.error(error);
