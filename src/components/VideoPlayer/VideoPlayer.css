@@ -1,0 +1,13 @@
+ 
+.movieModal {
+    display: none;
+    position: fixed;
+    width: 100%;
+    height: 100vh;
+    z-index: 99999;
+}
+.movieModal iframe {
+    max-width: 100%;
+    width: 100%;
+    height: 100%;
+}

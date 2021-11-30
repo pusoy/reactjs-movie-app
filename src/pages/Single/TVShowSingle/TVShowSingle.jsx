@@ -4,12 +4,17 @@ import {
 } from "react-router-dom";
 import React, { useState, useEffect, useReducer } from "react"
 import Config from "./../../../api/config"
+import {getIds} from './../../../components/VideoPlayer/VideoPlayer' 
 import "./TVShowSingle.css"
 const axios = require('axios')
 
+const images = {
+    poster: "../../images/poster-not-available.jpg"
+}
 
 const ACTIONS = {   
-    SET_MOVIE_DETAIL: 'movie-detail'
+    SET_MOVIE_DETAIL: 'movie-detail',
+    SET_SEASON_DETAIL: 'season-detail'
 }
 
 
@@ -18,7 +23,14 @@ function reducer(state, action) {
         case ACTIONS.SET_MOVIE_DETAIL:
             console.log(action)
             return { 
+                ...state,
                 movieDetail: action.payload.result
+            }
+        case ACTIONS.SET_SEASON_DETAIL:
+            console.log(action)
+            return { 
+                ...state,
+                seasonDetail: action.payload.result
             }
         default:
             return state
@@ -26,9 +38,9 @@ function reducer(state, action) {
 }
 
 const TVShowSingle = () => {
-    const [state, dispatch] = useReducer(reducer, { movieDetail: {} })
+    const [state, dispatch] = useReducer(reducer, { movieDetail: {}, seasonDetail: [], baseURL: "https://image.tmdb.org/t/p/original" })
  
-    const [tabMenu, setTabMenu] = useState(0) 
+    const [tabMenu, setTabMenu] = useState(1) 
     const [movieGenres, setmovieGenres] = useState([])
     const [runTime, setrunTime] = useState(0) 
     let location = useLocation();
@@ -49,11 +61,21 @@ const TVShowSingle = () => {
                 console.error(error)
             }
         }
+
+        const getSeasonDetail = async () => {
+            try{
+                // https://api.themoviedb.org/3/tv/{tv_id}/season/{season_number}?api_key=<<api_key>>&language=en-US
+                const response = await axios.get(`https://api.themoviedb.org/3/tv/${tvID}/season/${tabMenu}?api_key=${Config().API}&language=en-US`)
+                dispatch({ type: ACTIONS.SET_SEASON_DETAIL, payload: { result: response.data.episodes }})
+            } catch (error) {
+                console.log(error)
+            }
+        }
         getMovieDetail()
-    }, []);
+        getSeasonDetail()
+    }, [tabMenu]);
        
-    // Store season in array
-     
+    console.log(state)
     
     const minutesToHours = () => { 
         let Hours = Math.floor(runTime / 60)
@@ -71,7 +93,6 @@ const TVShowSingle = () => {
         e.preventDefault() 
         window.location.replace(`https://www.2embed.ru/embed/tmdb/movie?id=${state.movieDetail.id}`)
     }
-    console.log(state.movieDetail.overview)
    
     
     return (
@@ -138,11 +159,7 @@ const TVShowSingle = () => {
                     {
                         [...Array(state.movieDetail.number_of_seasons)].map((e, i) => { 
                                 return (  
-                                    <small key={(i+1)}>
-                                        <input type="checkbox" id="btnControl"/>
-                                        <span className='tab-link' onClick={() => {setTabMenu(tabMenu + 1)}} htmlFor="btnControl">{(i+1)}</span>
-                                    </small> 
-                                    
+                                    <span className={ tabMenu === i+1 ? 'tab-link active': 'tab-link'} onClick={() => {setTabMenu(i + 1)}}>{(i+1)}</span>
                                 )
                             }
                         )
@@ -150,6 +167,27 @@ const TVShowSingle = () => {
                      
                 </ul>
             </nav>
+
+            <div className="tvShowsEpisodes box-padding">
+                {
+                    state.seasonDetail.map((res) => { 
+                        let poster = `${state.baseURL}${res.still_path}`
+                        let tvLink = `tv/${state.movieDetail.id}/${res.id}`
+                        return (
+                            <div className="tvshows-box" key={res.id} onClick={() => { getIds(state.movieDetail.id, 0 , 'series') }}> 
+                                <div className="tvshow-img">
+                                    <img src={res.still_path !== null ? poster : images.poster }/>
+                                    <small className="episode">{res.episode_number}</small>
+                                </div> 
+                                <div className="episodeDetail">
+                                    <h3>{res.name}</h3>
+                                    <p>{res.overview}</p>
+                                </div> 
+                            </div>
+                        )
+                    })
+                } 
+            </div>
         </div>
     )
 }

@@ -8,6 +8,7 @@ import './App.css'
 import Sidebar from './components/Common/Sidebar/Sidebar'
 import Header from './components/Common/Header/Header'
 import Error404 from './components/Error/404' 
+import {VideoPlayer} from './components/VideoPlayer/VideoPlayer' 
 
 import { Home, 
   Single, TVShowSingle,
@@ -36,6 +37,7 @@ function App() {
   return (
     <Router>
       <div className="App">
+        <VideoPlayer/>
         <div id="overlay" className="closed" onClick={handleClickApp}></div>
         <Sidebar></Sidebar>
         <div id="main-container">
