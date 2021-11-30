@@ -169,7 +169,8 @@ a {
     text-decoration: none;
     transition: all .2s ease;
 }
-    
+.mt-25 { margin-top: 25px !important; }
+.box-padding { padding: 0 var(--container-padding);}
 .text-danger { color: var(--danger); }
 
 

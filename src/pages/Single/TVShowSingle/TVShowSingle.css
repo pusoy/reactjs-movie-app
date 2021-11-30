@@ -1,0 +1,10 @@
+.series-season h2 {
+    padding-top: 10px;
+    font-size: 18px;
+    font-weight: 500;
+    margin: 0;
+}
+#btnControl { display: none;}
+#btnControl:checked + .tab-link {
+    display: none;
+}

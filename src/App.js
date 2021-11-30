@@ -10,11 +10,13 @@ import Header from './components/Common/Header/Header'
 import Error404 from './components/Error/404' 
 
 import { Home, 
-  Single, 
+  Single, TVShowSingle,
   SearchDetail, 
-  Movies} from './pages/index'
+  Movies,
+  TVShows
+} from './pages/index'
 
-import UseReducer from './_tests/UseReducer/UseReducer'
+import UseReducer from './_tests/UseReducer/UseReducer' 
 
 function App() { 
   
@@ -39,19 +41,13 @@ function App() {
         <div id="main-container">
           <Header></Header>
           <Switch> 
-            <Route exact path="/"> <Home></Home> </Route>
-            <Route path="/movie/:id"> <Single></Single> </Route>
-            <Route path="/search">
-              <SearchDetail></SearchDetail>
-            </Route>
-            <Route exact path="/movies">
-              <Movies></Movies> 
-            </Route>   
-            <Route exact path="/reducer"> <UseReducer></UseReducer> </Route>
-
-            <Route path="*">
-              <Error404></Error404>
-            </Route> 
+            <Route exact path="/" component={Home}/>
+            <Route exact path="/movie/:id" component={Single}/>
+            <Route exact path="/search" component={SearchDetail}/>
+            <Route exact path="/movies" component={Movies}/>
+            <Route exact path="/tv-shows" component={TVShows}/>
+            <Route exact path="/tv/:id" component={TVShowSingle}/>
+            <Route path="*" component={Error404}/>
           </Switch> 
         </div>
         <div className="notification">

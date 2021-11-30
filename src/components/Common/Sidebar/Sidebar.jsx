@@ -41,12 +41,12 @@ const Sidebar = () => {
                                 <Link to="/" className={activeMenu === 'Home' ? 'sidebar-link is-active' : 'sidebar-link'} onClick={() => { handleClick("Home") }}><span className="material-icons"> home </span> Home</Link>
                                 <Link to="/movies" className={activeMenu === 'Movies' ? 'sidebar-link is-active' : 'sidebar-link'} onClick={() => { handleClick("Movies") }}><span className="material-icons"> video_library </span> Movies</Link>
                                 {/*  <small className="devmode">dev</small> */}
-                                {/* <Link to="/roulette" className="sidebar-link"> <span className="material-icons"> shuffle_on </span> Roulette</Link>
-                                <a className="sidebar-link" href="/slider"> <span className="material-icons"> slideshow </span> Slider</a>
+                                <Link to="/tv-shows" className={activeMenu === 'TV-Shows' ? 'sidebar-link is-active' : 'sidebar-link'} onClick={() => { handleClick("TV-Shows") }}> <span className="material-icons"> live_tv </span> TV Shows</Link>
+                                {/*<a className="sidebar-link" href="/slider"> <span className="material-icons"> slideshow </span> Slider</a>
                                 <a className="sidebar-link" href="/slider"> <span className="material-icons"> slideshow </span> Slider</a> */}
                             </div>
                         </div>
-                        <img src={images.fireboy} className="animated-gif" />
+                        {/* <img src={images.fireboy} className="animated-gif" /> */}
                     </div>
                 </section>
             </div>

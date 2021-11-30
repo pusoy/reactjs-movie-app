@@ -26,6 +26,7 @@
     cursor: pointer;
     background-color: var(--icon-bgcolor);
     box-shadow: var(--default-box-shadow);
+    margin: 0 5px;
 }
 .tabs .tab-link:hover {
     background-color: var(--default-color);

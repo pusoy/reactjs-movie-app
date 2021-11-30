@@ -59,8 +59,8 @@ const SearchDetail = () => {
               let date, title, posterLink
               console.log(res)
               date = res.release_date !== undefined ? date = new Date(res.release_date) : res.first_air_date !== undefined ? new Date(res.first_air_date) : '---'
-              title = res.original_title !== undefined ? res.original_title : res.original_name !== undefined ? res.original_name : res.known_for[0] > 0 ? res.known_for[0].original_title : res.name
-              posterLink = res.poster_path !== undefined ? `https://image.tmdb.org/t/p/original${res.poster_path}` : noPoster
+              title = res.name !== undefined ? res.name : res.title !== undefined ? res.title : res.original_title !== undefined ? res.original_title : res.original_name !== undefined ? res.original_name : res.known_for[0] > 0 ? res.known_for[0].original_title : res.name
+              posterLink = res.poster_path === null ? noPoster : res.poster_path !== undefined ? `https://image.tmdb.org/t/p/original${res.poster_path}` : noPoster
 
               const posterAlt = `Poster for ${res.original_name}`
               const movieLink = `movie/${res.id}`
@@ -87,7 +87,7 @@ const SearchDetail = () => {
           }
            
         </div>
-        <div className="more"><h6 onClick={handleLoadMore}>... Load More ...</h6></div>
+        {/* <div className="more"><h6 onClick={handleLoadMore}>... Load More ...</h6></div> */}
       </section>
     </div>
   )
