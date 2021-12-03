@@ -43,9 +43,8 @@ const TVShowSingle = () => {
     const [tabMenu, setTabMenu] = useState(1) 
     const [movieGenres, setmovieGenres] = useState([])
     const [runTime, setrunTime] = useState(0) 
-    let location = useLocation();
+    let location = useLocation()
     let tvID = location.pathname.split('/')[2]
-    let seasons = [];
 
     useEffect(() => { 
         // Update the document title using the browser API
@@ -99,7 +98,7 @@ const TVShowSingle = () => {
         <div id="detail-page">
             <div id="banner">
                 <div className="dot3"></div>
-                <img className="banner-img img-with-fb no-js-lNyLSOKMMeUPr1RsL4KcRuIXwHt" src={`https://image.tmdb.org/t/p/original/${state.movieDetail.backdrop_path}`} cached="true" loading="lazy" alt="" />
+                    <img className="banner-img img-with-fb no-js-lNyLSOKMMeUPr1RsL4KcRuIXwHt" src={`https://image.tmdb.org/t/p/original/${state.movieDetail.backdrop_path}`} cached="true" loading="lazy" alt="" />
                 <div className="gradient"></div>
             </div> 
             <div className="details-title">
@@ -140,26 +139,16 @@ const TVShowSingle = () => {
                             <p>...</p>
                         )
                     }
-                </div>
-                {/* <h2>Trailers</h2>
-                <div className="outer-div"> 
-                    <div className="embed-container">
-                          
-                        <iframe src="https://www.youtube.com/embed/XK-MIqHz5tU" frameBorder="0" allowFullScreen=""></iframe>
-                    </div>
-                </div> */}
+                </div> 
             </div>
             
             <nav className="tabs box-padding mt-25 series-season" id="season">
                 <h2>Season</h2>
-                <ul>
-                    {/* <li>
-                        <Link to="/movies" className={tabMenu == 'popular' ? 'tab-link active' : 'tab-link'} onClick={() => {setTabMenu('popular')}} >Popular</Link>
-                    </li> */}
+                <ul> 
                     {
                         [...Array(state.movieDetail.number_of_seasons)].map((e, i) => { 
                                 return (  
-                                    <span className={ tabMenu === i+1 ? 'tab-link active': 'tab-link'} onClick={() => {setTabMenu(i + 1)}}>{(i+1)}</span>
+                                    <span key={i+1} className={ tabMenu === i+1 ? 'tab-link active': 'tab-link'} onClick={() => {setTabMenu(i + 1)}}>{(i+1)}</span>
                                 )
                             }
                         )
