@@ -3,7 +3,7 @@ import {
   BrowserRouter as Router,
   Switch,
   Route
-} from "react-router-dom"; 
+} from "react-router-dom";  
 import './App.css'
 import Sidebar from './components/Common/Sidebar/Sidebar'
 import Header from './components/Common/Header/Header'
@@ -44,11 +44,11 @@ function App() {
           <Header></Header>
           <Switch> 
             <Route exact path="/" component={Home}/>
-            <Route exact path="/movie/:id" component={Single}/>
-            <Route exact path="/search" component={SearchDetail}/>
-            <Route exact path="/movies" component={Movies}/>
-            <Route exact path="/tv-shows" component={TVShows}/>
-            <Route exact path="/tv/:id" component={TVShowSingle}/>
+            <Route path="/movie/:id" component={Single}/>
+            <Route path="/search" component={SearchDetail}/>
+            <Route path="/movies" component={Movies}/>
+            <Route path="/tv-shows" component={TVShows}/>
+            <Route path="/tv/:id" component={TVShowSingle}/>
             <Route path="*" component={Error404}/>
           </Switch> 
         </div>
