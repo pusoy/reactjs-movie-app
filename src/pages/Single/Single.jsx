@@ -24,7 +24,7 @@ const Single = () => {
                 console.error(error)
             }
         }
-        getMovieDetail()
+        performance.navigation.type === 1 ? getMovieDetail() : getMovieDetail() 
     }, []);
      
     const minutesToHours = () => { 
