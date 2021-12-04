@@ -15,9 +15,7 @@ import { Home,
   SearchDetail, 
   Movies,
   TVShows
-} from './pages/index'
-
-import UseReducer from './_tests/UseReducer/UseReducer' 
+} from './pages/index' 
 
 function App() { 
   

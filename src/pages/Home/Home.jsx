@@ -2,8 +2,9 @@ import {
     Link
 } from "react-router-dom";
 import React, { useState, useEffect } from "react"
-import Config from "./../../api/config"
 import "./Home.css"
+import Config from "./../../api/config"
+import Banner from './../../components/Banner/Banner' 
 const axios = require('axios');
 
 let inlineStyle = {
@@ -37,13 +38,13 @@ const Home = () => {
         setCounter(counter + 1)
         console.log(counter)
     }
-     
-    console.log(movieList)
+      
 
     return (
         <div id="homepage" className="container">
             <div className="home">Home</div>
             <section>
+                
                 <div className="main-blogs">
                     <div className="main-blog anim">
                         <div className="main-blog__title">
@@ -60,8 +61,9 @@ const Home = () => {
                                 </div>
                             </div>
                         </div>
-                    </div> 
+                    </div>  
                 </div>
+                <Banner />
                 <h2>Now playing movies</h2> 
                 <div className="poster-grid">
                     {
