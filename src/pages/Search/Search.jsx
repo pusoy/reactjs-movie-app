@@ -18,8 +18,7 @@ const SearchDetail = () => {
   let searchString = location.search.split('=')[1]
   
   useEffect(() => {
-    // Update the document title using the browser API
-    console.log(query)
+    // Update the document title using the browser API 
     const getSearch = async () => {
       try {
         const response = await axios.get(`https://api.themoviedb.org/3/search/multi?api_key=${Config().API}&${query}&page=${counter}`)
@@ -63,7 +62,7 @@ const SearchDetail = () => {
               posterLink = res.poster_path === null ? noPoster : res.poster_path !== undefined ? `https://image.tmdb.org/t/p/original${res.poster_path}` : noPoster
 
               const posterAlt = `Poster for ${res.original_name}`
-              const movieLink = `movie/${res.id}`
+              const movieLink = res.media_type === 'tv' ? `tv/${res.id}` : `movie/${res.id}`
         
                
               return (

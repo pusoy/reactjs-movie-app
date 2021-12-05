@@ -80,6 +80,9 @@
 .poster-card {
     display: block;
 }
+.poster-card:hover {
+    cursor: pointer;
+}
 .poster-card .poster {
     border-radius: 15px;
     background-color: transparent;

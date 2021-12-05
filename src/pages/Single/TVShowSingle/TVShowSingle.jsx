@@ -3,8 +3,7 @@ import {
     useLocation
 } from "react-router-dom";
 import React, { useState, useEffect, useReducer } from "react"
-import Config from "./../../../api/config"
-import {getIds} from './../../../components/VideoPlayer/VideoPlayer' 
+import Config from "./../../../api/config" 
 import "./TVShowSingle.css"
 const axios = require('axios')
 
@@ -43,6 +42,8 @@ const TVShowSingle = () => {
     const [tabMenu, setTabMenu] = useState(1) 
     const [movieGenres, setmovieGenres] = useState([])
     const [runTime, setrunTime] = useState(0) 
+    const [player, setPlayer] = useState(false) 
+    const [seasonDetail, setSeasonDetail] = useState("") 
     let location = useLocation()
     let tvID = location.pathname.split('/')[2]
 
@@ -74,7 +75,7 @@ const TVShowSingle = () => {
         getSeasonDetail()
     }, [tabMenu]);
        
-    console.log(state)
+    console.log(player)
     
     const minutesToHours = () => { 
         let Hours = Math.floor(runTime / 60)
@@ -88,14 +89,41 @@ const TVShowSingle = () => {
         return `${result[1]} ${result[2]}th ${result[3]}`
     } 
 
-    const handlePlay = (e) => { 
-        e.preventDefault() 
-        window.location.replace(`https://www.2embed.ru/embed/tmdb/movie?id=${state.movieDetail.id}`)
+    const handlePlay = (ids) => {  
+        setSeasonDetail(ids)
+        setPlayer(!player)
+
+        let data = ids.split('|')
+        let season = data[0]
+        let episode = data[1] 
+        window.location.replace(`https://www.2embed.ru/embed/tmdb/tv?id=${state.movieDetail.id}&s=${season}&e=1${episode}`)
+    }
+
+    // Player
+    const VideoPlayer = () => {   
+        let data = seasonDetail.split('|')
+        let season = data[0]
+        let episode = data[1]
+    
+        let videoLink = `https://www.2embed.ru/embed/tmdb/tv?id=${state.movieDetail.id}&s=${season}&e=1${episode}` 
+        return (
+            player ? (
+                <div className="player">
+                    <span onClick={() => { setPlayer(!player) }}>x</span>
+                    <iframe src={videoLink} frameBorder="0" name="myframe"></iframe>
+                </div>
+            ) : (
+                <div>
+                </div>
+            )
+            
+        )
     }
    
     
     return (
         <div id="detail-page">
+            {/* <VideoPlayer/> */}
             <div id="banner">
                 <div className="dot3"></div>
                     <img className="banner-img img-with-fb no-js-lNyLSOKMMeUPr1RsL4KcRuIXwHt" src={`https://image.tmdb.org/t/p/original/${state.movieDetail.backdrop_path}`} cached="true" loading="lazy" alt="" />
@@ -162,8 +190,9 @@ const TVShowSingle = () => {
                     state.seasonDetail.map((res) => { 
                         let poster = `${state.baseURL}${res.still_path}`
                         let tvLink = `tv/${state.movieDetail.id}/${res.id}`
+                        console.log(res)
                         return (
-                            <div className="tvshows-box" key={res.id} onClick={() => { getIds(state.movieDetail.id, 0 , 'series') }}> 
+                            <div className="tvshows-box" key={res.id} onClick={() => { handlePlay(`${res.season_number}|${res.episode_number}`)  }}> 
                                 <div className="tvshow-img">
                                     <img src={res.still_path !== null ? poster : images.poster }/>
                                     <small className="episode">{res.episode_number}</small>
