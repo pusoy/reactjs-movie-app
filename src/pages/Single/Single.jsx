@@ -10,6 +10,8 @@ const Single = () => {
     const [movieGenres, setmovieGenres] = useState([])
     const [runTime, setrunTime] = useState(0)
     const [videos, setVideos] = useState([])
+    const [player, setPlayer] = useState(false) 
+    const [seasonDetail, setSeasonDetail] = useState("") 
     let location = useLocation();
     useEffect(() => { 
         // Update the document title using the browser API
@@ -39,19 +41,37 @@ const Single = () => {
         return `${result[1]} ${result[2]}th ${result[3]}`
     } 
 
-    const handlePlay = (e) => { 
-        e.preventDefault()
-        // window.open(`https://www.2embed.ru/embed/tmdb/movie?id=${movieDetail.id}`, "_blank")
-        window.location.replace(`https://www.2embed.ru/embed/tmdb/movie?id=${movieDetail.id}`)
-    }
+    // const handlePlay = (e) => { 
+    //     e.preventDefault()
+    //     // window.open(`https://www.2embed.ru/embed/tmdb/movie?id=${movieDetail.id}`, "_blank")
+    //     window.location.replace(`https://www.2embed.ru/embed/tmdb/movie?id=${movieDetail.id}`)
+    // }
  
-    const youtubeVideo = videos.find(yt => {
-        return yt.name === 'Eternals'
-    });
+    const handlePlay = (ids) => {  
+        setSeasonDetail(ids)
+        setPlayer(!player) 
+    }
+
+    // Player
+    const VideoPlayer = () => {    
+        let videoLink = `https://www.2embed.ru/embed/tmdb/movie?id=${movieDetail.id}` 
+        return (
+            player ? (
+                <div className="player">
+                    <span onClick={() => { setPlayer(!player) }}>x</span>
+                    <iframe src={videoLink} frameBorder="0" name="myframe"></iframe>
+                </div>
+            ) : (
+                <div>
+                </div>
+            ) 
+        )
+    }
     
     console.log(movieDetail)
     return (
         <div id="detail-page">
+        <VideoPlayer/>
             <div id="banner">
                 <div className="dot3"></div>
                 <img className="banner-img img-with-fb no-js-lNyLSOKMMeUPr1RsL4KcRuIXwHt" src={`https://image.tmdb.org/t/p/original/${movieDetail.backdrop_path}`} cached="true" loading="lazy" alt="" />

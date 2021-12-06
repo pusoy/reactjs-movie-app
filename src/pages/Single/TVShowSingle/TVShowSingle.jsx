@@ -2,10 +2,11 @@ import {
     Link,
     useLocation
 } from "react-router-dom";
-import React, { useState, useEffect, useReducer } from "react"
+import React, { useState, useEffect, useReducer, useRef } from "react" 
 import Config from "./../../../api/config" 
 import "./TVShowSingle.css"
-const axios = require('axios')
+const axios = require('axios') 
+const scrollToRef = (ref) => window.scrollTo(0, ref.current.offsetTop)
 
 const images = {
     poster: "../../images/poster-not-available.jpg"
@@ -38,12 +39,14 @@ function reducer(state, action) {
 
 const TVShowSingle = () => {
     const [state, dispatch] = useReducer(reducer, { movieDetail: {}, seasonDetail: [], baseURL: "https://image.tmdb.org/t/p/original" })
- 
+    
     const [tabMenu, setTabMenu] = useState(1) 
     const [movieGenres, setmovieGenres] = useState([])
     const [runTime, setrunTime] = useState(0) 
     const [player, setPlayer] = useState(false) 
     const [seasonDetail, setSeasonDetail] = useState("") 
+    const myRef = useRef(null) 
+    const executeScroll = () => scrollToRef(myRef)
     let location = useLocation()
     let tvID = location.pathname.split('/')[2]
 
@@ -88,15 +91,17 @@ const TVShowSingle = () => {
         let result = date.toString().split(" ")
         return `${result[1]} ${result[2]}th ${result[3]}`
     } 
+ 
 
     const handlePlay = (ids) => {  
         setSeasonDetail(ids)
         setPlayer(!player)
 
-        let data = ids.split('|')
-        let season = data[0]
-        let episode = data[1] 
-        window.location.replace(`https://www.2embed.ru/embed/tmdb/tv?id=${state.movieDetail.id}&s=${season}&e=1${episode}`)
+        // let data = ids.split('|')
+        // alert(data)
+        // let season = data[0]
+        // let episode = data[1] 
+        // window.location.replace(`https://www.2embed.ru/embed/tmdb/tv?id=${state.movieDetail.id}&s=${season}&e=${episode}`)
     }
 
     // Player
@@ -105,7 +110,7 @@ const TVShowSingle = () => {
         let season = data[0]
         let episode = data[1]
     
-        let videoLink = `https://www.2embed.ru/embed/tmdb/tv?id=${state.movieDetail.id}&s=${season}&e=1${episode}` 
+        let videoLink = `https://www.2embed.ru/embed/tmdb/tv?id=${state.movieDetail.id}&s=${season}&e=${episode}` 
         return (
             player ? (
                 <div className="player">
@@ -123,7 +128,7 @@ const TVShowSingle = () => {
     
     return (
         <div id="detail-page">
-            {/* <VideoPlayer/> */}
+            <VideoPlayer/>
             <div id="banner">
                 <div className="dot3"></div>
                     <img className="banner-img img-with-fb no-js-lNyLSOKMMeUPr1RsL4KcRuIXwHt" src={`https://image.tmdb.org/t/p/original/${state.movieDetail.backdrop_path}`} cached="true" loading="lazy" alt="" />
@@ -151,7 +156,7 @@ const TVShowSingle = () => {
                     </div>
                     <div className="bottom">
                         <div className="button-wrapper">
-                            <button title="Play" className="like" onClick={handlePlay}>
+                            <button title="Play" className="like" onClick={executeScroll}>
                                 <svg fill="currentColor" viewBox="0 0 24 24"><path d="M3 22v-20l18 10-18 10z"></path></svg>
                                 Seasons
                             </button>
@@ -185,7 +190,7 @@ const TVShowSingle = () => {
                 </ul>
             </nav>
 
-            <div className="tvShowsEpisodes box-padding">
+            <div className="tvShowsEpisodes box-padding" >
                 {
                     state.seasonDetail.map((res) => { 
                         let poster = `${state.baseURL}${res.still_path}`
