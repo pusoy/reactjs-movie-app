@@ -29,6 +29,8 @@ const Single = () => {
         getMovieDetail()
     }, []);
      
+    player ? document.body.style.overflow = "hidden" : document.body.style.overflow = "auto"
+    
     const minutesToHours = () => { 
         let Hours = Math.floor(runTime / 60)
         let minutes = runTime % 60

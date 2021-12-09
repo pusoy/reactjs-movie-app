@@ -77,8 +77,8 @@ const TVShowSingle = () => {
         getMovieDetail()
         getSeasonDetail()
     }, [tabMenu]);
-       
-    console.log(player)
+
+    player ? document.body.style.overflow = "hidden" : document.body.style.overflow = "auto" 
     
     const minutesToHours = () => { 
         let Hours = Math.floor(runTime / 60)
@@ -95,15 +95,9 @@ const TVShowSingle = () => {
 
     const handlePlay = (ids) => {  
         setSeasonDetail(ids)
-        setPlayer(!player)
-
-        // let data = ids.split('|')
-        // alert(data)
-        // let season = data[0]
-        // let episode = data[1] 
-        // window.location.replace(`https://www.2embed.ru/embed/tmdb/tv?id=${state.movieDetail.id}&s=${season}&e=${episode}`)
+        setPlayer(!player)  
     }
-
+     
     // Player
     const VideoPlayer = () => {   
         let data = seasonDetail.split('|')
