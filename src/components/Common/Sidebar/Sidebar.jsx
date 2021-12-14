@@ -33,7 +33,7 @@ const Sidebar = () => {
             <div id="sidebar-content">
                 <section>
                     <div className="sidebar">
-                        <a href="foo" className="logo-expand"><img src="images/main-logo.png" alt="" /></a>
+                        <a href="foo" className="logo-expand">WATCH</a>
                         <div className="side-wrapper">
                             <div className="side-title">MENU</div>
                             <div className="side-menu">
