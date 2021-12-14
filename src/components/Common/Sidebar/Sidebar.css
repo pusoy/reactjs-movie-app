@@ -20,7 +20,8 @@
     position: sticky;
     top: 0;
     text-align: left;
-    color: var(--theme-bg-color)
+    color: var(--theme-bg-color);
+    width: 130px;
 }
 
 #sidebar .side-wrapper {
