@@ -56,7 +56,7 @@ const Single = () => {
 
     // Player
     const VideoPlayer = () => {    
-        let videoLink = `https://www.2embed.ru/embed/tmdb/movie?id=${movieDetail.id}` 
+        let videoLink = `https://www.2embed.org/embed/${movieDetail.id}` 
         return (
             player ? (
                 <div className="player">

@@ -104,7 +104,7 @@ const TVShowSingle = () => {
         let season = data[0]
         let episode = data[1]
     
-        let videoLink = `https://www.2embed.ru/embed/tmdb/tv?id=${state.movieDetail.id}&s=${season}&e=${episode}` 
+        let videoLink = `https://www.2embed.org/embed/tv?id=${state.movieDetail.id}&s=${season}&e=${episode}` 
         return (
             player ? (
                 <div className="player">
