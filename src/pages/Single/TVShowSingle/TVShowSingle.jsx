@@ -78,7 +78,7 @@ const TVShowSingle = () => {
         getSeasonDetail()
     }, [tabMenu]);
 
-    player ? document.body.style.overflow = "hidden" : document.body.style.overflow = "auto" 
+    // player ? document.body.style.overflow = "hidden" : document.body.style.overflow = "auto" 
     
     const minutesToHours = () => { 
         let Hours = Math.floor(runTime / 60)
@@ -95,34 +95,43 @@ const TVShowSingle = () => {
 
     const handlePlay = (ids) => {  
         setSeasonDetail(ids)
-        setPlayer(!player)  
-    }
-     
-    // Player
-    const VideoPlayer = () => {   
-        let data = seasonDetail.split('|')
+        // setPlayer(!player)
+
+		let data = ids.split('|')
         let season = data[0]
         let episode = data[1]
-    
-        let videoLink = `https://www.2embed.org/embed/tv?id=${state.movieDetail.id}&s=${season}&e=${episode}` 
-        return (
-            player ? (
-                <div className="player">
-                    <span onClick={() => { setPlayer(!player) }}>x</span>
-                    <iframe src={videoLink} frameBorder="0" name="myframe"></iframe>
-                </div>
-            ) : (
-                <div>
-                </div>
-            )
-            
-        )
+		let videoLink = `https://www.2embed.org/embed/tv?id=${state.movieDetail.id}&s=${season}&e=${episode}`;
+		window.open(videoLink, '_blank').focus();
     }
+     
+    // Player not used
+    /*
+		const VideoPlayer = () => {   
+			let data = seasonDetail.split('|')
+			let season = data[0]
+			let episode = data[1]
+		
+			let videoLink = `https://www.2embed.org/embed/tv?id=${state.movieDetail.id}&s=${season}&e=${episode}`;
+			
+			return (
+				player ? (
+					<div className="player">
+						<span onClick={() => { setPlayer(!player) }}>x</span>
+						<iframe is="x-frame-bypass" src={videoLink} frameBorder="0" name="myframe"></iframe>
+					</div>
+				) : (
+					<div>
+					</div>
+				)
+				
+			)
+		}
+	*/
    
     
     return (
         <div id="detail-page">
-            <VideoPlayer/>
+            {/* <VideoPlayer/> */}
             <div id="banner">
                 <div className="dot3"></div>
                     <img className="banner-img img-with-fb no-js-lNyLSOKMMeUPr1RsL4KcRuIXwHt" src={`https://image.tmdb.org/t/p/original/${state.movieDetail.backdrop_path}`} cached="true" loading="lazy" alt="" />
@@ -189,7 +198,7 @@ const TVShowSingle = () => {
                     state.seasonDetail.map((res) => { 
                         let poster = `${state.baseURL}${res.still_path}`
                         let tvLink = `tv/${state.movieDetail.id}/${res.id}`
-                        console.log(res)
+						console.log(res);
                         return (
                             <div className="tvshows-box" key={res.id} onClick={() => { handlePlay(`${res.season_number}|${res.episode_number}`)  }}> 
                                 <div className="tvshow-img">

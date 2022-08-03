@@ -29,7 +29,7 @@ const Single = () => {
         getMovieDetail()
     }, []);
      
-    player ? document.body.style.overflow = "hidden" : document.body.style.overflow = "auto"
+    // player ? document.body.style.overflow = "hidden" : document.body.style.overflow = "auto"
     
     const minutesToHours = () => { 
         let Hours = Math.floor(runTime / 60)
@@ -41,39 +41,39 @@ const Single = () => {
         const date = new Date(movieDetail.release_date)
         let result = date.toString().split(" ")
         return `${result[1]} ${result[2]}th ${result[3]}`
-    } 
-
-    // const handlePlay = (e) => { 
-    //     e.preventDefault()
-    //     // window.open(`https://www.2embed.ru/embed/tmdb/movie?id=${movieDetail.id}`, "_blank")
-    //     window.location.replace(`https://www.2embed.ru/embed/tmdb/movie?id=${movieDetail.id}`)
-    // }
+    }
  
     const handlePlay = (ids) => {  
         setSeasonDetail(ids)
-        setPlayer(!player) 
+        setPlayer(!player)
+
+		let videoLink = `https://www.2embed.org/embed/${movieDetail.id}` 
+		window.open(videoLink, '_blank').focus();
     }
 
     // Player
     const VideoPlayer = () => {    
         let videoLink = `https://www.2embed.org/embed/${movieDetail.id}` 
-        return (
-            player ? (
-                <div className="player">
-                    <span onClick={() => { setPlayer(!player) }}>x</span>
-                    <iframe src={videoLink} frameBorder="0" name="myframe"></iframe>
-                </div>
-            ) : (
-                <div>
-                </div>
-            ) 
-        )
+		window.open(videoLink, '_blank').focus();
+		/*
+			return (
+				player ? (
+					<div className="player">
+						<span onClick={() => { setPlayer(!player) }}>x</span>
+						<iframe is="x-frame-bypass" src={videoLink} frameBorder="0" name="myframe"></iframe>
+					</div>
+				) : (
+					<div>
+					</div>
+				) 
+			)
+		*/
     }
     
     console.log(movieDetail)
     return (
         <div id="detail-page">
-        <VideoPlayer/>
+        {/* <VideoPlayer/> */}
             <div id="banner">
                 <div className="dot3"></div>
                 <img className="banner-img img-with-fb no-js-lNyLSOKMMeUPr1RsL4KcRuIXwHt" src={`https://image.tmdb.org/t/p/original/${movieDetail.backdrop_path}`} cached="true" loading="lazy" alt="" />

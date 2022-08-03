@@ -62,7 +62,7 @@ small.episode {
     padding: 20px; 
     font-size: 13px;
     font-weight: 100;
-    border-top: 1px solid #ffffff73;
+    /* border-top: 1px solid #ffffff73; */
     position: relative;
 }
 .episodeDetail h3 {

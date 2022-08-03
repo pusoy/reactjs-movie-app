@@ -48,9 +48,6 @@ function App() {
             <Route path="*" component={Error404}/>
           </Switch> 
         </div>
-        <div className="notification">
-          <span>TV-Shows is up.</span>
-        </div>
       </div>
     </Router>
   

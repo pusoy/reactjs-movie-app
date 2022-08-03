@@ -63,7 +63,7 @@ const Home = () => {
                         </div>
                     </div>  
                 </div>
-                <Banner />
+                {/* <Banner /> */}
                 <h2>Now playing movies</h2> 
                 <div className="poster-grid">
                     {
