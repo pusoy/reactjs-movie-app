@@ -2,33 +2,33 @@ import {
     Link,
     useLocation
 } from "react-router-dom";
-import React, { useState, useEffect, useReducer, useRef } from "react" 
-import Config from "./../../../api/config" 
+import React, { useState, useEffect, useReducer, useRef } from "react"
+import Config from "./../../../api/config"
 import "./TVShowSingle.css"
-const axios = require('axios') 
+const axios = require('axios')
 const scrollToRef = (ref) => window.scrollTo(0, ref.current.offsetTop)
 
 const images = {
     poster: "../../images/poster-not-available.jpg"
 }
 
-const ACTIONS = {   
+const ACTIONS = {
     SET_MOVIE_DETAIL: 'movie-detail',
     SET_SEASON_DETAIL: 'season-detail'
 }
 
 
 function reducer(state, action) {
-    switch (action.type) { 
+    switch (action.type) {
         case ACTIONS.SET_MOVIE_DETAIL:
             console.log(action)
-            return { 
+            return {
                 ...state,
                 movieDetail: action.payload.result
             }
         case ACTIONS.SET_SEASON_DETAIL:
             console.log(action)
-            return { 
+            return {
                 ...state,
                 seasonDetail: action.payload.result
             }
@@ -39,27 +39,27 @@ function reducer(state, action) {
 
 const TVShowSingle = () => {
     const [state, dispatch] = useReducer(reducer, { movieDetail: {}, seasonDetail: [], baseURL: "https://image.tmdb.org/t/p/original" })
-    
-    const [tabMenu, setTabMenu] = useState(1) 
+
+    const [tabMenu, setTabMenu] = useState(1)
     const [movieGenres, setmovieGenres] = useState([])
-    const [runTime, setrunTime] = useState(0) 
-    const [player, setPlayer] = useState(false) 
-    const [seasonDetail, setSeasonDetail] = useState("") 
-    const myRef = useRef(null) 
+    const [runTime, setrunTime] = useState(0)
+    const [player, setPlayer] = useState(false)
+    const [seasonDetail, setSeasonDetail] = useState("")
+    const myRef = useRef(null)
     const executeScroll = () => scrollToRef(myRef)
     let location = useLocation()
     let tvID = location.pathname.split('/')[2]
 
-    useEffect(() => { 
+    useEffect(() => {
         // Update the document title using the browser API
         const getMovieDetail = async () => {
             try {
-                //  
+                //
                 const response = await axios.get(`https://api.themoviedb.org/3/tv/${tvID}?api_key=${Config().API}&language=en-US`)
                 dispatch({ type: ACTIONS.SET_MOVIE_DETAIL, payload: { result: response.data }})
-              
+
                 // setmovieDetail(response.data)
-                setmovieGenres(response.data.genres)  
+                setmovieGenres(response.data.genres)
             } catch (error) {
                 console.error(error)
             }
@@ -78,9 +78,9 @@ const TVShowSingle = () => {
         getSeasonDetail()
     }, [tabMenu]);
 
-    // player ? document.body.style.overflow = "hidden" : document.body.style.overflow = "auto" 
-    
-    const minutesToHours = () => { 
+    // player ? document.body.style.overflow = "hidden" : document.body.style.overflow = "auto"
+
+    const minutesToHours = () => {
         let Hours = Math.floor(runTime / 60)
         let minutes = runTime % 60
         return `${Hours}h ${minutes}min`
@@ -90,29 +90,30 @@ const TVShowSingle = () => {
         const date = new Date(state.movieDetail.first_air_date)
         let result = date.toString().split(" ")
         return `${result[1]} ${result[2]}th ${result[3]}`
-    } 
- 
+    }
 
-    const handlePlay = (ids) => {  
+
+    const handlePlay = (ids) => {
         setSeasonDetail(ids)
         // setPlayer(!player)
 
 		let data = ids.split('|')
         let season = data[0]
         let episode = data[1]
-		let videoLink = `https://www.2embed.org/embed/tv?id=${state.movieDetail.id}&s=${season}&e=${episode}`;
+		// let videoLink = `https://www.2embed.org/embed/tv?id=${state.movieDetail.id}&s=${season}&e=${episode}`;
+		let videoLink = `https://www.2embed.to/embed/tmdb/tv?id=${state.movieDetail.id}&s=${season}&e=${episode}`;
 		window.open(videoLink, '_blank').focus();
     }
-     
+
     // Player not used
     /*
-		const VideoPlayer = () => {   
+		const VideoPlayer = () => {
 			let data = seasonDetail.split('|')
 			let season = data[0]
 			let episode = data[1]
-		
+
 			let videoLink = `https://www.2embed.org/embed/tv?id=${state.movieDetail.id}&s=${season}&e=${episode}`;
-			
+
 			return (
 				player ? (
 					<div className="player">
@@ -123,12 +124,12 @@ const TVShowSingle = () => {
 					<div>
 					</div>
 				)
-				
+
 			)
 		}
 	*/
-   
-    
+
+
     return (
         <div id="detail-page">
             {/* <VideoPlayer/> */}
@@ -136,23 +137,23 @@ const TVShowSingle = () => {
                 <div className="dot3"></div>
                     <img className="banner-img img-with-fb no-js-lNyLSOKMMeUPr1RsL4KcRuIXwHt" src={`https://image.tmdb.org/t/p/original/${state.movieDetail.backdrop_path}`} cached="true" loading="lazy" alt="" />
                 <div className="gradient"></div>
-            </div> 
+            </div>
             <div className="details-title">
                 <img className="poster img-with-fb no-js-rjkmN1dniUHVYAtwuV3Tji7FsDO" src={`https://image.tmdb.org/t/p/w500/${state.movieDetail.poster_path}`} cached="true" loading="lazy" alt={state.movieDetail.original_title} />
                 <div className="text">
                     <h1 className="title">{state.movieDetail.original_name}</h1>
                     <div className="info">
                         <div className="video-p-detail">
-                            <div className="video-p-name"> 
+                            <div className="video-p-name">
                                 {
                                     movieGenres.map((res) => {
                                         return (
                                             <a className="video-p-genre" href="/movies/genre/878" key={res.id}>{res.name}</a>
-                                        )   
+                                        )
                                     })
-                                } 
+                                }
                             </div>
-                            <div className="video-p-sub"> 
+                            <div className="video-p-sub">
                                 {releaseDate()}
                             </div>
                         </div>
@@ -166,53 +167,53 @@ const TVShowSingle = () => {
                         </div>
                     </div>
                 </div>
-            </div> 
+            </div>
             <div className="movie-info">
                 <h2>Synopsis</h2>
                 <div className="synopsis">
-                    { 
+                    {
                         state.movieDetail.overview !== undefined ? (state.movieDetail.overview) : (
                             <p>...</p>
                         )
                     }
-                </div> 
+                </div>
             </div>
-            
+
             <nav className="tabs box-padding mt-25 series-season" id="season">
                 <h2>Season</h2>
-                <ul> 
+                <ul>
                     {
-                        [...Array(state.movieDetail.number_of_seasons)].map((e, i) => { 
-                                return (  
+                        [...Array(state.movieDetail.number_of_seasons)].map((e, i) => {
+                                return (
                                     <span key={i+1} className={ tabMenu === i+1 ? 'tab-link active': 'tab-link'} onClick={() => {setTabMenu(i + 1)}}>{(i+1)}</span>
                                 )
                             }
                         )
                     }
-                     
+
                 </ul>
             </nav>
 
             <div className="tvShowsEpisodes box-padding" >
                 {
-                    state.seasonDetail.map((res) => { 
+                    state.seasonDetail.map((res) => {
                         let poster = `${state.baseURL}${res.still_path}`
                         let tvLink = `tv/${state.movieDetail.id}/${res.id}`
 						console.log(res);
                         return (
-                            <div className="tvshows-box" key={res.id} onClick={() => { handlePlay(`${res.season_number}|${res.episode_number}`)  }}> 
+                            <div className="tvshows-box" key={res.id} onClick={() => { handlePlay(`${res.season_number}|${res.episode_number}`)  }}>
                                 <div className="tvshow-img">
                                     <img src={res.still_path !== null ? poster : images.poster }/>
                                     <small className="episode">{res.episode_number}</small>
-                                </div> 
+                                </div>
                                 <div className="episodeDetail">
                                     <h3>{res.name}</h3>
                                     <p>{res.overview}</p>
-                                </div> 
+                                </div>
                             </div>
                         )
                     })
-                } 
+                }
             </div>
         </div>
     )
