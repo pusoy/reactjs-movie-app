@@ -1,14 +1,16 @@
-import React, {useState, useEffect} from "react"
-import "./VideoPlayer.css"
+import {VideoPlayerWrapper} from './elements'
 
- 
-const VideoPlayer = () => { 
-    let videoLink = `https://www.2embed.ru/embed/tmdb`
+const VideoPlayer = ({
+    open,
+    onClose,
+    vidSrc
+}) => {  
  
     return (
-        <div className="movieModal">
-            <iframe src={videoLink} frameBorder="0"></iframe>
-        </div>
+        <VideoPlayerWrapper $open={open}>
+            <button onClick={onClose} className="coseBtn">Close</button>
+            <iframe src={vidSrc} title="player" /> 
+        </VideoPlayerWrapper>
     )
 }
 

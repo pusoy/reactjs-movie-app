@@ -44,7 +44,7 @@ function App() {
             <Route path="/search" component={SearchDetail}/>
             <Route path="/movies" component={Movies}/>
             <Route path="/tv-shows" component={TVShows}/>
-            <Route path="/tv/:id" component={TVShowSingle}/>
+            <Route path="/tv/:id" component={TVShowSingle}/>  
             <Route path="*" component={Error404}/>
           </Switch> 
         </div>

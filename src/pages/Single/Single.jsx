@@ -3,34 +3,32 @@ import {
 } from "react-router-dom";
 import React, { useState, useEffect } from "react"
 import "./Single.css"
+import Config from "../../config";
+import VideoPlayer from "../../components/VideoPlayer/VideoPlayer";
 const axios = require('axios')
 
 const Single = () => {
     const [movieDetail, setmovieDetail] = useState({})
     const [movieGenres, setmovieGenres] = useState([])
-    const [runTime, setrunTime] = useState(0)
-    const [videos, setVideos] = useState([])
-    const [player, setPlayer] = useState(false) 
-    const [seasonDetail, setSeasonDetail] = useState("") 
-    let location = useLocation();
+    const [runTime, setrunTime] = useState(0) 
+    const [openModal, setOpenModal] = useState(false)  
+    const location = useLocation();
+
     useEffect(() => { 
         // Update the document title using the browser API
         const getMovieDetail = async () => {
             try {
-                const response = await axios.get(`https://api.themoviedb.org/3${location.pathname}?api_key=d0e6107be30f2a3cb0a34ad2a90ceb6f&append_to_response=videos,credits,recommendations`)
+                const response = await axios.get(`https://api.themoviedb.org/3${location.pathname}?api_key=${Config().API}&append_to_response=videos,credits,recommendations`)
                 setmovieDetail(response.data)
                 setmovieGenres(response.data.genres)
-                setrunTime(response.data.runtime)
-                setVideos(response.data.videos.results)
+                setrunTime(response.data.runtime) 
             } catch (error) {
                 console.error(error)
             }
         }
         getMovieDetail()
     }, []);
-     
-    // player ? document.body.style.overflow = "hidden" : document.body.style.overflow = "auto"
-    
+      
     const minutesToHours = () => { 
         let Hours = Math.floor(runTime / 60)
         let minutes = runTime % 60
@@ -43,37 +41,18 @@ const Single = () => {
         return `${result[1]} ${result[2]}th ${result[3]}`
     }
  
-    const handlePlay = (ids) => {  
-        setSeasonDetail(ids)
-        setPlayer(!player)
-
-		let videoLink = `https://www.2embed.org/embed/${movieDetail.id}` 
-		window.open(videoLink, '_blank').focus();
+    const handlePlay = (id) => {    
+        setOpenModal(true) 
     }
 
     // Player
-    const VideoPlayer = () => {    
-        let videoLink = `https://www.2embed.org/embed/${movieDetail.id}` 
-		window.open(videoLink, '_blank').focus();
-		/*
-			return (
-				player ? (
-					<div className="player">
-						<span onClick={() => { setPlayer(!player) }}>x</span>
-						<iframe is="x-frame-bypass" src={videoLink} frameBorder="0" name="myframe"></iframe>
-					</div>
-				) : (
-					<div>
-					</div>
-				) 
-			)
-		*/
-    }
-    
-    console.log(movieDetail)
+    // const VideoPlayer = () => {    
+    //     let videoLink = `https://www.2embed.org/embed/${movieDetail.id}` 
+	// 	window.open(videoLink, '_blank').focus();
+		  
+    // } 
     return (
-        <div id="detail-page">
-        {/* <VideoPlayer/> */}
+        <div id="detail-page"> 
             <div id="banner">
                 <div className="dot3"></div>
                 <img className="banner-img img-with-fb no-js-lNyLSOKMMeUPr1RsL4KcRuIXwHt" src={`https://image.tmdb.org/t/p/original/${movieDetail.backdrop_path}`} cached="true" loading="lazy" alt="" />
@@ -104,7 +83,9 @@ const Single = () => {
                     </div>
                     <div className="bottom">
                         <div className="button-wrapper">
-                            <button title="Play" className="like" onClick={handlePlay}>
+                            <button title="Play" className="like" onClick={() => {
+                                handlePlay()
+                            }}>
                                 <svg fill="currentColor" viewBox="0 0 24 24"><path d="M3 22v-20l18 10-18 10z"></path></svg>
                                 Play
                             </button>
@@ -125,6 +106,9 @@ const Single = () => {
                     </div>
                 </div> */}
             </div>
+            <VideoPlayer open={openModal} onClose={() => setOpenModal(false)} 
+                vidSrc={`https://vidsrc.to/embed/movie/${movieDetail.id}`}
+            />
         </div>
     )
 }

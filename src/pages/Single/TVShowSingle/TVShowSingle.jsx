@@ -5,6 +5,7 @@ import {
 import React, { useState, useEffect, useReducer, useRef } from "react"
 import Config from "./../../../api/config"
 import "./TVShowSingle.css"
+import VideoPlayer from "../../../components/VideoPlayer/VideoPlayer";
 const axios = require('axios')
 const scrollToRef = (ref) => window.scrollTo(0, ref.current.offsetTop)
 
@@ -20,8 +21,7 @@ const ACTIONS = {
 
 function reducer(state, action) {
     switch (action.type) {
-        case ACTIONS.SET_MOVIE_DETAIL:
-            console.log(action)
+        case ACTIONS.SET_MOVIE_DETAIL: 
             return {
                 ...state,
                 movieDetail: action.payload.result
@@ -42,9 +42,15 @@ const TVShowSingle = () => {
 
     const [tabMenu, setTabMenu] = useState(1)
     const [movieGenres, setmovieGenres] = useState([])
-    const [runTime, setrunTime] = useState(0)
-    const [player, setPlayer] = useState(false)
-    const [seasonDetail, setSeasonDetail] = useState("")
+    const [runTime, setrunTime] = useState(0) 
+    // const [seasonDetail, setSeasonDetail] = useState("")
+    const [openModal, setOpenModal] = useState(false);
+    const [currentPlaying, setCurrentPlaying] = useState({
+        season: 0,
+        episode: 0,
+        id: 0
+    });
+
     const myRef = useRef(null)
     const executeScroll = () => scrollToRef(myRef)
     let location = useLocation()
@@ -66,8 +72,7 @@ const TVShowSingle = () => {
         }
 
         const getSeasonDetail = async () => {
-            try{
-                // https://api.themoviedb.org/3/tv/{tv_id}/season/{season_number}?api_key=<<api_key>>&language=en-US
+            try{ 
                 const response = await axios.get(`https://api.themoviedb.org/3/tv/${tvID}/season/${tabMenu}?api_key=${Config().API}&language=en-US`)
                 dispatch({ type: ACTIONS.SET_SEASON_DETAIL, payload: { result: response.data.episodes }})
             } catch (error) {
@@ -77,8 +82,7 @@ const TVShowSingle = () => {
         getMovieDetail()
         getSeasonDetail()
     }, [tabMenu]);
-
-    // player ? document.body.style.overflow = "hidden" : document.body.style.overflow = "auto"
+ 
 
     const minutesToHours = () => {
         let Hours = Math.floor(runTime / 60)
@@ -93,46 +97,24 @@ const TVShowSingle = () => {
     }
 
 
-    const handlePlay = (ids) => {
-        setSeasonDetail(ids)
-        // setPlayer(!player)
+    const handlePlay = (ids) => { 
 
-		let data = ids.split('|')
-        let season = data[0]
-        let episode = data[1]
-		// let videoLink = `https://www.2embed.org/embed/tv?id=${state.movieDetail.id}&s=${season}&e=${episode}`;
-		let videoLink = `https://www.2embed.to/embed/tmdb/tv?id=${state.movieDetail.id}&s=${season}&e=${episode}`;
-		window.open(videoLink, '_blank').focus();
-    }
-
-    // Player not used
-    /*
-		const VideoPlayer = () => {
-			let data = seasonDetail.split('|')
-			let season = data[0]
-			let episode = data[1]
-
-			let videoLink = `https://www.2embed.org/embed/tv?id=${state.movieDetail.id}&s=${season}&e=${episode}`;
-
-			return (
-				player ? (
-					<div className="player">
-						<span onClick={() => { setPlayer(!player) }}>x</span>
-						<iframe is="x-frame-bypass" src={videoLink} frameBorder="0" name="myframe"></iframe>
-					</div>
-				) : (
-					<div>
-					</div>
-				)
-
-			)
-		}
-	*/
+		const data = ids.split('|')
+        const season = data[0]
+        const episode = data[1] 
+		
+        setCurrentPlaying({
+            season,
+            episode,
+            id: state.movieDetail.id
+        })
+        setOpenModal(true)
+        
+    } 
 
 
     return (
-        <div id="detail-page">
-            {/* <VideoPlayer/> */}
+        <div id="detail-page"> 
             <div id="banner">
                 <div className="dot3"></div>
                     <img className="banner-img img-with-fb no-js-lNyLSOKMMeUPr1RsL4KcRuIXwHt" src={`https://image.tmdb.org/t/p/original/${state.movieDetail.backdrop_path}`} cached="true" loading="lazy" alt="" />
@@ -197,13 +179,12 @@ const TVShowSingle = () => {
             <div className="tvShowsEpisodes box-padding" >
                 {
                     state.seasonDetail.map((res) => {
-                        let poster = `${state.baseURL}${res.still_path}`
-                        let tvLink = `tv/${state.movieDetail.id}/${res.id}`
-						console.log(res);
+                        const poster = `${state.baseURL}${res.still_path}` 
+
                         return (
                             <div className="tvshows-box" key={res.id} onClick={() => { handlePlay(`${res.season_number}|${res.episode_number}`)  }}>
                                 <div className="tvshow-img">
-                                    <img src={res.still_path !== null ? poster : images.poster }/>
+                                    <img src={res.still_path !== null ? poster : images.poster } alt="poster" />
                                     <small className="episode">{res.episode_number}</small>
                                 </div>
                                 <div className="episodeDetail">
@@ -215,6 +196,9 @@ const TVShowSingle = () => {
                     })
                 }
             </div>
+            <VideoPlayer open={openModal} onClose={() => setOpenModal(false)} 
+                  vidSrc={`https://vidsrc.to/embed/tv/${currentPlaying.id}/${currentPlaying.season}/${currentPlaying.episode}`}
+            />
         </div>
     )
 }
