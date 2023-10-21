@@ -43,6 +43,10 @@
     padding-bottom: 10px;
 }
 
+#homepage .main-blog__title .recommend {
+    margin: 20px 0 0;
+}
+
 #homepage .main-blog__author, #homepage .main-blogs {
     display: flex;
     align-items: center;
