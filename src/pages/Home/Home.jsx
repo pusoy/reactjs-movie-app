@@ -55,9 +55,9 @@ const Home = () => {
                                 <div className="author-name">Support Me.
                                 </div>
                                 <div className="author-info donate">
-                                    <a href="tel:09664505714">Gcash</a>
+                                    <a href="tel:09673643071">Gcash</a>
                                     <span className="seperate"></span>
-                                    <a href="https://www.paypal.me/JaffyMaglinte" target="_blank">Paypal</a>
+                                    {/* <a href="https://www.paypal.me/JaffyMaglinte" target="_blank">Paypal</a> */}
                                 </div>
                             </div>
                         </div>
