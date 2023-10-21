@@ -3,15 +3,9 @@ import {
 } from "react-router-dom";
 import React, { useState, useEffect } from "react"
 import "./Home.css"
-import Config from "./../../api/config"
-import Banner from './../../components/Banner/Banner' 
+import Config from "./../../api/config" 
 const axios = require('axios');
-
-let inlineStyle = {
-    banner: [{
-        color: 'var(--danger)'
-    }]
-}
+ 
 const Home = () => {
     const [movieList, setMovieList] = useState([])
     const [counter, setCounter] = useState(1)
@@ -49,7 +43,9 @@ const Home = () => {
                     <div className="main-blog anim">
                         <div className="main-blog__title">
                             SELECT person FROM world WHERE someone LIKE '%<i className="text-danger">you</i>%';
+                            <h6 className="recommend">Recommended browser: <a href="https://brave.com/" target="_blank" rel="noreferrer">Brave</a></h6>
                         </div>
+
                         <div className="main-blog__author">
                             <div className="author-detail">
                                 <div className="author-name">Support Me.
