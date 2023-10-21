@@ -15,10 +15,10 @@ export const VideoPlayerWrapper = styled.div`
     position: absolute;
     right: 0;
     top: 10px;
-    background: #fff;
-    padding: 10px;
+    background: rgb(255 255 255 / 31%);
+    padding: 5px;
     border-radius: 25px;
-    font-size: 15px;
+    font-size: 9px;
     border-top-right-radius: 0;
     border-bottom-right-radius: 0; 
   }
