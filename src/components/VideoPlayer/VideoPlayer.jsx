@@ -7,10 +7,15 @@ const VideoPlayer = ({
 }) => {  
  
     return (
-        <VideoPlayerWrapper $open={open}>
-            <button onClick={onClose} className="coseBtn">Close</button>
-            <iframe src={vidSrc} title="player" /> 
-        </VideoPlayerWrapper>
+        <>
+            {open && (
+                <VideoPlayerWrapper $open={open}>
+                    <button onClick={onClose} className="coseBtn">Close</button>
+                    <iframe src={vidSrc} title="player" /> 
+                </VideoPlayerWrapper>
+            )}
+        </>
+        
     )
 }
 
