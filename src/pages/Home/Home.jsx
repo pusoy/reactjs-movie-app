@@ -28,23 +28,11 @@ const Home = () => {
     getMovieList();
   }, [counter]);
 
-  const handleFetch = useCallback(async () => {
-    const response = await axios.get(
-      `https://api.themoviedb.org/3/movie/now_playing?api_key=${
-        Config().API
-      }&language=en-US&page=${counter}`
-    );
-    setMovieList((prev) => [...prev, ...response.data.results]);
-    setCounter((prev) => prev + 1);
-
-    console.log("asas");
-  }, [counter]);
-
   useEffect(() => {
     if (inView) {
-      handleFetch();
+      setCounter((prev) => prev + 1);
     }
-  }, [inView, handleFetch]);
+  }, [inView]);
 
   return (
     <div id="homepage" className="container">
