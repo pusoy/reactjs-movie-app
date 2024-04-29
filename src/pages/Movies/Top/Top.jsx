@@ -1,8 +1,8 @@
 import React, { useReducer, useEffect } from "react";
 import { Link } from "react-router-dom";
-import Config from "./../../../api/config";
 import axios from "axios";
 import { useInView } from "react-intersection-observer";
+import TMDB_Config from "../../../database/TMDB_Config";
 
 const ACTIONS = {
   INCREMENT: "increment",
@@ -34,9 +34,7 @@ const TopRated = () => {
     const getMovieList = async () => {
       try {
         const response = await axios.get(
-          `https://api.themoviedb.org/3/movie/top_rated?api_key=${
-            Config().API
-          }&language=en-US&page=${state.count}`
+          `https://api.themoviedb.org/3/movie/top_rated?api_key=${TMDB_Config.API}&language=en-US&page=${state.count}`
         );
         dispatch({
           type: ACTIONS.POPULAR,

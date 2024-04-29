@@ -1,17 +1,9 @@
 import React, { useReducer, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import "./Genre.css";
-import Config from "./../../../api/config";
+import TMDB_Config from "../../../database/TMDB_Config";
 import axios from "axios";
 import { useInView } from "react-intersection-observer";
-
-const IMAGES = [
-  { src: "images/hi.gif" },
-  { src: "images/haha.gif" },
-  { src: "images/wew.gif" },
-  { src: "images/happy.gif" },
-  { src: "images/eating.gif" },
-];
 
 const ACTIONS = {
   GENRE: "genre",
@@ -54,36 +46,16 @@ const Genre = () => {
   const { ref, inView } = useInView();
 
   useEffect(() => {
-    const getGenreList = async () => {
-      try {
-        const response = await axios.get(
-          `https://api.themoviedb.org/3/genre/movie/list?api_key=${
-            Config().API
-          }&language=en-US`
-        );
-        dispatch({
-          type: ACTIONS.GENRE,
-          payload: { result: response.data.genres },
-        });
-      } catch (error) {
-        console.error(error);
-      }
-    };
-
     const getMovieList = async () => {
       try {
         const response = await axios.get(
-          `https://api.themoviedb.org/3/discover/movie?api_key=${
-            Config().API
-          }&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=1&with_watch_monetization_types=flatrate&with_genres=${genre}&page=${
-            state.count
-          }`
+          `https://api.themoviedb.org/3/discover/movie?api_key=${TMDB_Config.API}&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=1&with_watch_monetization_types=flatrate&with_genres=${genre}&page=${state.count}`
         );
         dispatch({
           type: ACTIONS.POPULAR,
           payload: {
             result:
-              state.count == 1
+              state.count === 1
                 ? response.data.results
                 : [...state.popularList, ...response.data.results],
           },
@@ -94,17 +66,14 @@ const Genre = () => {
     };
 
     getMovieList();
-    getGenreList();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [state.count]);
+  }, [state.count, genre]);
 
   useEffect(() => {
     const getGenreList = async () => {
       try {
         const response = await axios.get(
-          `https://api.themoviedb.org/3/genre/movie/list?api_key=${
-            Config().API
-          }&language=en-US`
+          `https://api.themoviedb.org/3/genre/movie/list?api_key=${TMDB_Config.API}&language=en-US`
         );
         dispatch({
           type: ACTIONS.GENRE,
@@ -116,7 +85,7 @@ const Genre = () => {
     };
     getGenreList();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [genre]);
+  }, []);
 
   useEffect(() => {
     if (inView) dispatch({ type: ACTIONS.INCREMENT });
@@ -178,11 +147,7 @@ const Genre = () => {
           <span ref={ref} />
         </div>
       ) : (
-        <div className="genre-banner">
-          {IMAGES.map((image) => {
-            return <img src={image.src} />;
-          })}
-        </div>
+        <>{/* // <div className="genre-banner"></div> */}</>
       )}
     </>
   );
