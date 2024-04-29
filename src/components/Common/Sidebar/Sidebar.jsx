@@ -1,16 +1,9 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import "./Sidebar.css";
 import { Link } from "react-router-dom";
 
-const images = {
-  fireboy: "images/fire-boy.gif",
-};
-console.log(images.fireboy);
 const Sidebar = () => {
   const [activeMenu, setActiveMenu] = useState();
-  useEffect(() => {
-    // window.scrollTo({ top: 0, behavior: 'smooth' })
-  }, [activeMenu]);
 
   let handleClick = (str) => {
     setActiveMenu(str);
@@ -30,7 +23,7 @@ const Sidebar = () => {
         <section>
           <div className="sidebar">
             <a href="foo" className="logo-expand">
-              <img src="images/main-logo.png" alt="" />
+              <img src="/images/main-logo.png" alt="" />
             </a>
             <div className="side-wrapper">
               <div className="side-title">MENU</div>
