@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect } from "react";
 import "./Home.css";
-import Config from "./../../api/config";
+import TMDB_Config from "../../database/TMDB_Config";
 import { useInView } from "react-intersection-observer";
 
 const axios = require("axios");
@@ -15,9 +15,7 @@ const Home = () => {
     const getMovieList = async () => {
       try {
         const response = await axios.get(
-          `https://api.themoviedb.org/3/movie/now_playing?api_key=${
-            Config().API
-          }&language=en-US&page=${counter}`
+          `https://api.themoviedb.org/3/movie/now_playing?api_key=${TMDB_Config.API}&language=en-US&page=${counter}`
         );
         setMovieList((prev) => [...prev, ...response.data.results]);
       } catch (error) {

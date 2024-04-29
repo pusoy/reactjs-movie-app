@@ -1,6 +1,6 @@
 import React, { useReducer, useEffect } from "react";
 import { Link } from "react-router-dom";
-import Config from "./../../../api/config";
+import TMDB_Config from "../../../database/TMDB_Config";
 import axios from "axios";
 import { useInView } from "react-intersection-observer";
 
@@ -36,9 +36,7 @@ const Popular = () => {
     const getMovieList = async () => {
       try {
         const response = await axios.get(
-          `https://api.themoviedb.org/3/tv/popular?api_key=${
-            Config().API
-          }&language=en-US&page=${state.count}`
+          `https://api.themoviedb.org/3/tv/popular?api_key=${TMDB_Config.API}&language=en-US&page=${state.count}`
         );
         dispatch({
           type: ACTIONS.POPULAR,

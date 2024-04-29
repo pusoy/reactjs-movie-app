@@ -1,10 +1,10 @@
 import { useLocation, Link } from "react-router-dom";
 import React, { useState, useEffect } from "react";
-import Config from "./../../api/config";
 import "./Search.css";
 import noPoster from "./../../assets/img/poster-holder.jpg";
 import axios from "axios";
 import { useInView } from "react-intersection-observer";
+import TMDB_Config from "../../database/TMDB_Config";
 
 const SearchDetail = () => {
   const [searchData, setsearchData] = useState({});
@@ -21,9 +21,7 @@ const SearchDetail = () => {
     const getSearch = async () => {
       try {
         const response = await axios.get(
-          `https://api.themoviedb.org/3/search/multi?api_key=${
-            Config().API
-          }&${query}&page=${counter}`
+          `https://api.themoviedb.org/3/search/multi?api_key=${TMDB_Config.API}&${query}&page=${counter}`
         );
         setsearchData(response.data);
         counter === 1
