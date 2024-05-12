@@ -1,5 +1,5 @@
 import React, { useReducer, useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "./Genre.css";
 import TMDB_Config from "../../../database/TMDB_Config";
 import axios from "axios";
@@ -44,6 +44,7 @@ const Genre = () => {
   });
   const [genre, setGenre] = useState("");
   const { ref, inView } = useInView();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const getMovieList = async () => {
@@ -95,20 +96,18 @@ const Genre = () => {
     <>
       <div className="genre-detail">
         {state.genreList.map((res) => {
-          let genreLink = `/movies`;
           return (
-            <Link
+            <div
               className={
                 genre == res.id ? `genre-box is-genre-active` : `genre-box`
               }
-              to={genreLink}
               key={res.id}
               onClick={() => {
                 setGenre(res.id);
               }}
             >
               {res.name}
-            </Link>
+            </div>
           );
         })}
       </div>
@@ -116,13 +115,15 @@ const Genre = () => {
         <div id="popular-detail">
           <div className="poster-grid">
             {state.popularList.map((res) => {
-              // console.log(res)
               const date = new Date(res.release_date);
               const poster = `https://image.tmdb.org/t/p/original${res.poster_path}`;
-              const movieLink = `movie/${res.id}`;
+              const movieLink = `/movie/${res.id}`;
               return (
                 <div key={res.id}>
-                  <Link to={movieLink} className="poster-card">
+                  <div
+                    onClick={() => navigate(movieLink)}
+                    className="poster-card"
+                  >
                     <img
                       className="poster img-with-fb no-js-1MJNcPZy46hIy2CmSqOeru0yr5C"
                       src={poster}
@@ -139,7 +140,7 @@ const Genre = () => {
                       {res.vote_average}
                       <i className="type">Movie</i>
                     </div>
-                  </Link>
+                  </div>
                 </div>
               );
             })}

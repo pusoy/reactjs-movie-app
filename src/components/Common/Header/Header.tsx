@@ -1,25 +1,30 @@
-import React, { useState } from "react";
-import { useHistory } from "react-router-dom";
+import { ChangeEvent, FormEvent, MouseEvent, useState } from "react";
+import { useNavigate } from "react-router";
 import "./Header.css";
 
-let lastUpdate;
 const Header = () => {
-  let history = useHistory();
+  const navigate = useNavigate();
   const [text, setText] = useState("");
 
-  const handleClick = (e) => {
+  let lastUpdate: number;
+
+  const handleClick = (e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     let sidebar = document.getElementById("sidebar");
     let overlay = document.getElementById("overlay");
 
-    sidebar.classList.remove("closed");
-    sidebar.classList.add("open");
+    if (sidebar) {
+      sidebar.classList.remove("closed");
+      sidebar.classList.add("open");
+    }
 
-    overlay.classList.remove("closed");
-    overlay.classList.add("open");
+    if (overlay) {
+      overlay.classList.remove("closed");
+      overlay.classList.add("open");
+    }
   };
 
-  const handleChangeQuery = (e) => {
+  const handleChangeQuery = (e: ChangeEvent<HTMLInputElement>) => {
     let newLink = `/search?query=${e.target.value}`;
     setText(e.target.value);
     lastUpdate = Date.now();
@@ -27,15 +32,15 @@ const Header = () => {
     setTimeout(() => {
       const diff = Date.now() - lastUpdate;
       if (diff > 500) {
-        history.push(newLink);
+        navigate(newLink);
       }
     }, 1000);
   };
 
-  const onFormSubmit = (e) => {
+  const onFormSubmit = (e: FormEvent) => {
     e.preventDefault();
     let newLink = `/search?query=${text}`;
-    history.push(newLink);
+    navigate(newLink);
   };
 
   return (

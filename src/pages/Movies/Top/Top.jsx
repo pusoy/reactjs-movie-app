@@ -1,5 +1,5 @@
 import React, { useReducer, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useInView } from "react-intersection-observer";
 import TMDB_Config from "../../../database/TMDB_Config";
@@ -65,7 +65,7 @@ const TopRated = () => {
           // console.log(res)
           const date = new Date(res.release_date);
           const poster = `https://image.tmdb.org/t/p/original${res.poster_path}`;
-          const movieLink = `movie/${res.id}`;
+          const movieLink = `/movie/${res.id}`;
           return (
             <div key={res.id}>
               <Link to={movieLink} className="poster-card">

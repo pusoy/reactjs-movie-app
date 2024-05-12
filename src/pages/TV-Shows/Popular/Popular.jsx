@@ -1,5 +1,5 @@
 import React, { useReducer, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import TMDB_Config from "../../../database/TMDB_Config";
 import axios from "axios";
 import { useInView } from "react-intersection-observer";
@@ -29,6 +29,7 @@ function reducer(state, action) {
 }
 
 const Popular = () => {
+  const navigate = useNavigate();
   const [state, dispatch] = useReducer(reducer, { count: 1, popularList: [] });
   const { ref, inView } = useInView();
 
@@ -64,13 +65,12 @@ const Popular = () => {
     <div id="popular-detail">
       <div className="poster-grid">
         {state.popularList.map((res) => {
-          console.log(res);
           const date = new Date(res.first_air_date);
           const poster = `https://image.tmdb.org/t/p/original${res.poster_path}`;
-          const movieLink = `tv/${res.id}`;
+          const movieLink = `/tv/${res.id}`;
           return (
             <div key={res.id}>
-              <Link to={movieLink} className="poster-card">
+              <div onClick={() => navigate(movieLink)} className="poster-card">
                 <img
                   className="poster img-with-fb no-js-1MJNcPZy46hIy2CmSqOeru0yr5C"
                   src={poster}
@@ -87,7 +87,7 @@ const Popular = () => {
                   {res.vote_average}
                   <i className="type">Movie</i>
                 </div>
-              </Link>
+              </div>
             </div>
           );
         })}

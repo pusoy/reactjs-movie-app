@@ -1,8 +1,8 @@
-// import logo from './logo.svg';
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import { Route, BrowserRouter, Routes } from "react-router-dom";
+
 import "./App.css";
 import Sidebar from "@/components/Common/Sidebar/Sidebar";
-import Header from "./components/Common/Header/Header";
+import Header from "@/components/Common/Header/Header";
 import Error404 from "./components/Error/404";
 
 import {
@@ -13,39 +13,43 @@ import {
   Movies,
   TVShows,
 } from "./pages/index";
+import { MouseEvent } from "react";
 
 function App() {
-  const handleClickApp = (e) => {
+  const handleClickApp = (e: MouseEvent<HTMLDivElement>) => {
     e.preventDefault();
     let sidebar = document.getElementById("sidebar");
     let overlay = document.getElementById("overlay");
 
-    sidebar.classList.remove("open");
-    sidebar.classList.add("closed");
-
-    overlay.classList.remove("open");
-    overlay.classList.add("closed");
+    if (sidebar) {
+      sidebar.classList.remove("open");
+      sidebar.classList.add("closed");
+    }
+    if (overlay) {
+      overlay.classList.remove("open");
+      overlay.classList.add("closed");
+    }
   };
 
   return (
-    <Router>
+    <BrowserRouter>
       <div className="App">
         <div id="overlay" className="closed" onClick={handleClickApp}></div>
         <Sidebar></Sidebar>
         <div id="main-container">
           <Header />
-          <Switch>
-            <Route exact path="/" component={Home} />
-            <Route path="/movie/:id" component={Single} />
-            <Route path="/search" component={SearchDetail} />
-            <Route path="/movies" component={Movies} />
-            <Route path="/tv-shows" component={TVShows} />
-            <Route path="/tv/:id" component={TVShowSingle} />
-            <Route path="*" component={Error404} />
-          </Switch>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/movie/:id" element={<Single />} />
+            <Route path="/search" element={<SearchDetail />} />
+            <Route path="/movies" element={<Movies />} />
+            <Route path="/tv-shows" element={<TVShows />} />
+            <Route path="/tv/:id" element={<TVShowSingle />} />
+            <Route path="*" element={<Error404 />} />
+          </Routes>
         </div>
       </div>
-    </Router>
+    </BrowserRouter>
   );
 }
 
