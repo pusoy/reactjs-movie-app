@@ -3,8 +3,7 @@ import React, { useState, useEffect } from "react";
 import "./Home.css";
 import TMDB_Config from "../../database/TMDB_Config";
 import { useInView } from "react-intersection-observer";
-
-const axios = require("axios");
+import axios from "axios";
 
 const Home = () => {
   const [movieList, setMovieList] = useState([]);
