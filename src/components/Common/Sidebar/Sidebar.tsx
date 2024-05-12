@@ -1,20 +1,23 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import "./Sidebar.css";
 import { Link } from "react-router-dom";
 
 const Sidebar = () => {
-  const [activeMenu, setActiveMenu] = useState();
+  const [activeMenu, setActiveMenu] = useState("");
 
-  let handleClick = (str) => {
+  let handleClick = (str: string) => {
     setActiveMenu(str);
     let sidebar = document.getElementById("sidebar");
     let overlay = document.getElementById("overlay");
 
-    sidebar.classList.remove("open");
-    sidebar.classList.add("closed");
-
-    overlay.classList.remove("open");
-    overlay.classList.add("closed");
+    if (sidebar) {
+      sidebar.classList.remove("open");
+      sidebar.classList.add("closed");
+    }
+    if (overlay) {
+      overlay.classList.remove("open");
+      overlay.classList.add("closed");
+    }
   };
 
   return (

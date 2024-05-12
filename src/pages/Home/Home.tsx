@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import "./Home.css";
 import TMDB_Config from "../../database/TMDB_Config";
 import { useInView } from "react-intersection-observer";
@@ -16,6 +16,7 @@ const Home = () => {
         const response = await axios.get(
           `https://api.themoviedb.org/3/movie/now_playing?api_key=${TMDB_Config.API}&language=en-US&page=${counter}`
         );
+        // @ts-ignore
         setMovieList((prev) => [...prev, ...response.data.results]);
       } catch (error) {
         console.error(error);

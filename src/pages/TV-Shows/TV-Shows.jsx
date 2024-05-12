@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import React, { useState } from "react";
 import "./TV-Shows.css";
 import Popular from "./Popular/Popular";
@@ -26,6 +26,7 @@ function reducer(count, action) {
 }
 
 const TVShows = () => {
+  const navigate = useNavigate();
   const [tabMenu, setTabMenu] = useState("popular");
 
   return (
