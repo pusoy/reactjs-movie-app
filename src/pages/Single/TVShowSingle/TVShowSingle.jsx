@@ -3,7 +3,7 @@ import React, { useState, useEffect, useReducer, useRef } from "react";
 import TMDB_Config from "../../../database/TMDB_Config";
 import "./TVShowSingle.css";
 import VideoPlayer from "../../../components/VideoPlayer/VideoPlayer";
-const axios = require("axios");
+import axios from "axios";
 const scrollToRef = (ref) => window.scrollTo(0, ref.current.offsetTop);
 
 const images = {

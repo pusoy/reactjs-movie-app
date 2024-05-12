@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react";
 import "./Single.css";
 import Config from "../../config";
 import VideoPlayer from "../../components/VideoPlayer/VideoPlayer";
-const axios = require("axios");
+import axios from "axios";
 
 const Single = () => {
   const [movieDetail, setmovieDetail] = useState({});

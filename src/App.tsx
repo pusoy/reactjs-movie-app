@@ -1,7 +1,7 @@
 // import logo from './logo.svg';
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import "./App.css";
-import Sidebar from "./components/Common/Sidebar/Sidebar";
+import Sidebar from "@/components/Common/Sidebar/Sidebar";
 import Header from "./components/Common/Header/Header";
 import Error404 from "./components/Error/404";
 
