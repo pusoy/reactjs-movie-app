@@ -1,4 +1,3 @@
-import React from "react";
 import "./index.css";
 import "./assets/css/media.css";
 import App from "./App";
