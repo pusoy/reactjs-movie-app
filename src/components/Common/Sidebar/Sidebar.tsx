@@ -1,9 +1,10 @@
 import { useState } from "react";
 import "./Sidebar.css";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const Sidebar = () => {
   const [activeMenu, setActiveMenu] = useState("");
+  const navigate = useNavigate();
 
   let handleClick = (str: string) => {
     setActiveMenu(str);
@@ -20,14 +21,15 @@ const Sidebar = () => {
     }
   };
 
+  const handleClickHome = () => navigate("");
   return (
     <div id="sidebar" className="closed">
       <div id="sidebar-content">
         <section>
           <div className="sidebar">
-            <a href="foo" className="logo-expand">
+            <div onClick={handleClickHome} className="logo-expand">
               <img src="/images/main-logo.png" alt="" />
-            </a>
+            </div>
             <div className="side-wrapper">
               <div className="side-title">MENU</div>
               <div className="side-menu">

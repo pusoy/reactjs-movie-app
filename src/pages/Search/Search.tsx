@@ -87,7 +87,7 @@ export const SearchDetail = () => {
 
             const posterAlt = `Poster for ${res.original_name}`;
             const movieLink =
-              res.media_type === "tv" ? `tv/${res.id}` : `movie/${res.id}`;
+              res.media_type === "tv" ? `/tv/${res.id}` : `/movie/${res.id}`;
 
             return (
               <div key={res.id}>
