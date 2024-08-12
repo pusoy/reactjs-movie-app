@@ -5,7 +5,7 @@ import TMDB_Config from "../../database/TMDB_Config";
 import { useInView } from "react-intersection-observer";
 import axios from "axios";
 
-const Home = () => {
+export const Home = () => {
   const [movieList, setMovieList] = useState([]);
   const [counter, setCounter] = useState(1);
   const { ref, inView } = useInView();
@@ -64,7 +64,7 @@ const Home = () => {
         {/* <Banner /> */}
         <h2>Now playing movies</h2>
         <div className="poster-grid">
-          {movieList.map((res, index) => {
+          {movieList.map((res: any, index) => {
             const date = new Date(res.release_date);
             const poster = `https://image.tmdb.org/t/p/original${res.poster_path}`;
             const movieLink = `movie/${res.id}`;
@@ -74,7 +74,6 @@ const Home = () => {
                   <img
                     className="poster img-with-fb no-js-1MJNcPZy46hIy2CmSqOeru0yr5C"
                     src={poster}
-                    cached="true"
                     loading="lazy"
                     alt="Poster for Venom: Let There Be Carnage"
                   />
@@ -97,5 +96,3 @@ const Home = () => {
     </div>
   );
 };
-
-export default Home;

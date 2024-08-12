@@ -1,5 +1,5 @@
-import React, { useReducer, useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useReducer, useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import "./Genre.css";
 import TMDB_Config from "../../../database/TMDB_Config";
 import axios from "axios";
@@ -11,7 +11,7 @@ const ACTIONS = {
   INCREMENT: "increment",
 };
 
-function reducer(state, action) {
+function reducer(state: any, action: any) {
   switch (action.type) {
     case ACTIONS.GENRE:
       return {
@@ -36,7 +36,7 @@ function reducer(state, action) {
   }
 }
 
-const Genre = () => {
+export const Genre = () => {
   const [state, dispatch] = useReducer(reducer, {
     genreList: [],
     popularList: [],
@@ -95,7 +95,7 @@ const Genre = () => {
   return (
     <>
       <div className="genre-detail">
-        {state.genreList.map((res) => {
+        {state.genreList.map((res: any) => {
           return (
             <div
               className={
@@ -114,7 +114,7 @@ const Genre = () => {
       {genre != "" ? (
         <div id="popular-detail">
           <div className="poster-grid">
-            {state.popularList.map((res) => {
+            {state.popularList.map((res: any) => {
               const date = new Date(res.release_date);
               const poster = `https://image.tmdb.org/t/p/original${res.poster_path}`;
               const movieLink = `/movie/${res.id}`;
@@ -127,7 +127,6 @@ const Genre = () => {
                     <img
                       className="poster img-with-fb no-js-1MJNcPZy46hIy2CmSqOeru0yr5C"
                       src={poster}
-                      cached="true"
                       loading="lazy"
                       alt="Poster for Venom: Let There Be Carnage"
                     />
@@ -153,5 +152,3 @@ const Genre = () => {
     </>
   );
 };
-
-export default Genre;

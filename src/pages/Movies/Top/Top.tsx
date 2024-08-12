@@ -1,4 +1,4 @@
-import React, { useReducer, useEffect } from "react";
+import { useReducer, useEffect } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import { useInView } from "react-intersection-observer";
@@ -9,32 +9,32 @@ const ACTIONS = {
   POPULAR: "popular",
 };
 
-function reducer(state, action) {
+function reducer(state: any, action: any) {
   switch (action.type) {
     case ACTIONS.INCREMENT:
       return {
         count: state.count + 1,
-        upcomingList: state.upcomingList,
+        topRatedList: state.topRatedList,
       };
     case ACTIONS.POPULAR:
       return {
         count: state.count,
-        upcomingList: action.payload.result,
+        topRatedList: action.payload.result,
       };
     default:
       return state;
   }
 }
 
-const Upcoming = () => {
-  const [state, dispatch] = useReducer(reducer, { count: 1, upcomingList: [] });
+export const TopRated = () => {
+  const [state, dispatch] = useReducer(reducer, { count: 1, topRatedList: [] });
   const { ref, inView } = useInView();
 
   useEffect(() => {
     const getMovieList = async () => {
       try {
         const response = await axios.get(
-          `https://api.themoviedb.org/3/movie/upcoming?api_key=${TMDB_Config.API}&language=en-US&page=${state.count}`
+          `https://api.themoviedb.org/3/movie/top_rated?api_key=${TMDB_Config.API}&language=en-US&page=${state.count}`
         );
         dispatch({
           type: ACTIONS.POPULAR,
@@ -42,7 +42,7 @@ const Upcoming = () => {
             result:
               state.count == 1
                 ? response.data.results
-                : [...state.upcomingList, ...response.data.results],
+                : [...state.topRatedList, ...response.data.results],
           },
         });
       } catch (error) {
@@ -61,7 +61,8 @@ const Upcoming = () => {
   return (
     <div id="popular-detail">
       <div className="poster-grid">
-        {state.upcomingList.map((res) => {
+        {state.topRatedList.map((res: any) => {
+          // console.log(res)
           const date = new Date(res.release_date);
           const poster = `https://image.tmdb.org/t/p/original${res.poster_path}`;
           const movieLink = `/movie/${res.id}`;
@@ -71,7 +72,6 @@ const Upcoming = () => {
                 <img
                   className="poster img-with-fb no-js-1MJNcPZy46hIy2CmSqOeru0yr5C"
                   src={poster}
-                  cached="true"
                   loading="lazy"
                   alt="Poster for Venom: Let There Be Carnage"
                 />
@@ -93,5 +93,3 @@ const Upcoming = () => {
     </div>
   );
 };
-
-export default Upcoming;

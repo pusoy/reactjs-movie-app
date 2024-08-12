@@ -1,5 +1,5 @@
-import React, { useReducer, useEffect } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useReducer, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import TMDB_Config from "../../../database/TMDB_Config";
 import axios from "axios";
 import { useInView } from "react-intersection-observer";
@@ -11,7 +11,7 @@ const ACTIONS = {
   POPULAR: "popular",
 };
 
-function reducer(state, action) {
+function reducer(state: any, action: any) {
   switch (action.type) {
     case ACTIONS.INCREMENT:
       return {
@@ -28,7 +28,7 @@ function reducer(state, action) {
   }
 }
 
-const Popular = () => {
+export const Popular = () => {
   const [state, dispatch] = useReducer(reducer, { count: 1, popularList: [] });
   const { ref, inView } = useInView();
   const navigate = useNavigate();
@@ -62,7 +62,7 @@ const Popular = () => {
   return (
     <div id="popular-detail">
       <div className="poster-grid">
-        {state.popularList.map((res) => {
+        {state.popularList.map((res: any) => {
           const date = new Date(res.release_date);
           const poster = `https://image.tmdb.org/t/p/original${res.poster_path}`;
           const movieLink = `/movie/${res.id}`;
@@ -72,7 +72,6 @@ const Popular = () => {
                 <img
                   className="poster img-with-fb no-js-1MJNcPZy46hIy2CmSqOeru0yr5C"
                   src={poster}
-                  cached="true"
                   loading="lazy"
                   alt="Poster for Venom: Let There Be Carnage"
                 />
@@ -94,5 +93,3 @@ const Popular = () => {
     </div>
   );
 };
-
-export default Popular;
