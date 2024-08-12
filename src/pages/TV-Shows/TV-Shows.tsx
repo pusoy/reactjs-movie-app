@@ -1,32 +1,9 @@
-import { Link, useNavigate } from "react-router-dom";
-import React, { useState } from "react";
+import { Link } from "react-router-dom";
+import { useState } from "react";
 import "./TV-Shows.css";
-import Popular from "./Popular/Popular";
-
-const ACTIONS = {
-  INCREMENT: "increment",
-  DECREMENT: "decrement",
-  RESET: "reset",
-  CHANGE_COUNT: "change-count",
-};
-
-function reducer(count, action) {
-  switch (action.type) {
-    case ACTIONS.INCREMENT:
-      return count + 1;
-    case ACTIONS.DECREMENT:
-      return count - 1;
-    case ACTIONS.RESET:
-      return 0;
-    case ACTIONS.CHANGE_COUNT:
-      return count + action.payload.amount;
-    default:
-      return count;
-  }
-}
+import { Popular } from "./Popular";
 
 const TVShows = () => {
-  const navigate = useNavigate();
   const [tabMenu, setTabMenu] = useState("popular");
 
   return (

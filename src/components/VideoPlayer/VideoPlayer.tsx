@@ -1,6 +1,11 @@
 import { VideoPlayerWrapper } from "./elements";
 
-const VideoPlayer = ({ open, onClose, vidSrc }) => {
+type VideoPlayerProps = {
+  open: boolean;
+  onClose: () => void;
+  vidSrc: string;
+};
+const VideoPlayer = ({ open, onClose, vidSrc }: VideoPlayerProps) => {
   return (
     <>
       {open && (

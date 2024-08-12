@@ -1,14 +1,14 @@
 import { useLocation, Link } from "react-router-dom";
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import "./Search.css";
-import noPoster from "./../../assets/img/poster-holder.jpg";
+import noPoster from "@/assets/img/poster-holder.jpg";
 import axios from "axios";
 import { useInView } from "react-intersection-observer";
-import TMDB_Config from "../../database/TMDB_Config";
+import TMDB_Config from "@/database/TMDB_Config";
 
-const SearchDetail = () => {
-  const [searchData, setsearchData] = useState({});
-  const [searchResult, setsearchResult] = useState([]);
+export const SearchDetail = () => {
+  const [searchData, setsearchData] = useState<any>({});
+  const [searchResult, setsearchResult] = useState<any>([]);
   const [counter, setCounter] = useState(1);
   const { ref, inView } = useInView();
 
@@ -58,8 +58,8 @@ const SearchDetail = () => {
       <section>
         <h1>Search results for: {searchString.replace(/%20/g, " ")}</h1>
         <div className="poster-grid">
-          {searchResult.map((res) => {
-            let date, title, posterLink;
+          {searchResult.map((res: any) => {
+            let date: any, title, posterLink;
             date =
               res.release_date !== undefined
                 ? (date = new Date(res.release_date))
@@ -95,7 +95,6 @@ const SearchDetail = () => {
                   <img
                     className="poster img-with-fb no-js-1MJNcPZy46hIy2CmSqOeru0yr5C"
                     src={posterLink}
-                    cached="true"
                     loading="lazy"
                     alt={posterAlt}
                   />
@@ -123,5 +122,3 @@ const SearchDetail = () => {
     </div>
   );
 };
-
-export { SearchDetail };

@@ -1,12 +1,12 @@
 import { useLocation } from "react-router-dom";
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import "./Single.css";
-import Config from "../../config";
-import VideoPlayer from "../../components/VideoPlayer/VideoPlayer";
+import Config from "@/config.ts";
+import { VideoPlayer } from "@/components/VideoPlayer";
 import axios from "axios";
 
-const Single = () => {
-  const [movieDetail, setmovieDetail] = useState({});
+export const Single = () => {
+  const [movieDetail, setmovieDetail] = useState<any>({});
   const [movieGenres, setmovieGenres] = useState([]);
   const [runTime, setrunTime] = useState(0);
   const [openModal, setOpenModal] = useState(false);
@@ -43,7 +43,7 @@ const Single = () => {
     return `${result[1]} ${result[2]}th ${result[3]}`;
   };
 
-  const handlePlay = (id) => {
+  const handlePlay = () => {
     setOpenModal(true);
   };
 
@@ -54,7 +54,6 @@ const Single = () => {
         <img
           className="banner-img img-with-fb no-js-lNyLSOKMMeUPr1RsL4KcRuIXwHt"
           src={`https://image.tmdb.org/t/p/original/${movieDetail.backdrop_path}`}
-          cached="true"
           loading="lazy"
           alt=""
         />
@@ -64,7 +63,6 @@ const Single = () => {
         <img
           className="poster img-with-fb no-js-rjkmN1dniUHVYAtwuV3Tji7FsDO"
           src={`https://image.tmdb.org/t/p/w500/${movieDetail.poster_path}`}
-          cached="true"
           loading="lazy"
           alt={movieDetail.original_title}
         />
@@ -73,7 +71,7 @@ const Single = () => {
           <div className="info">
             <div className="video-p-detail">
               <div className="video-p-name">
-                {movieGenres.map((res) => {
+                {movieGenres.map((res: any) => {
                   return (
                     <a
                       className="video-p-genre"
@@ -117,10 +115,9 @@ const Single = () => {
       <VideoPlayer
         open={openModal}
         onClose={() => setOpenModal(false)}
-        vidSrc={`https://vidsrc.to/embed/movie/${movieDetail.id}`}
+        // TODO: declare this on ENV
+        vidSrc={`https://vidsrc.cc/v2/embed/movie/${movieDetail.id}`}
       />
     </div>
   );
 };
-
-export default Single;

@@ -1,40 +1,43 @@
-import React, { useReducer, useEffect } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useReducer, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import TMDB_Config from "../../../database/TMDB_Config";
 import axios from "axios";
 import { useInView } from "react-intersection-observer";
-import TMDB_Config from "../../../database/TMDB_Config";
 
 const ACTIONS = {
   INCREMENT: "increment",
+  RESET: "reset",
+  CHANGE_COUNT: "change-count",
   POPULAR: "popular",
 };
 
-function reducer(state, action) {
+function reducer(state: any, action: any) {
   switch (action.type) {
     case ACTIONS.INCREMENT:
       return {
         count: state.count + 1,
-        topRatedList: state.topRatedList,
+        popularList: state.popularList,
       };
     case ACTIONS.POPULAR:
       return {
         count: state.count,
-        topRatedList: action.payload.result,
+        popularList: action.payload.result,
       };
     default:
       return state;
   }
 }
 
-const TopRated = () => {
-  const [state, dispatch] = useReducer(reducer, { count: 1, topRatedList: [] });
+const Popular = () => {
+  const navigate = useNavigate();
+  const [state, dispatch] = useReducer(reducer, { count: 1, popularList: [] });
   const { ref, inView } = useInView();
 
   useEffect(() => {
     const getMovieList = async () => {
       try {
         const response = await axios.get(
-          `https://api.themoviedb.org/3/movie/top_rated?api_key=${TMDB_Config.API}&language=en-US&page=${state.count}`
+          `https://api.themoviedb.org/3/tv/popular?api_key=${TMDB_Config.API}&language=en-US&page=${state.count}`
         );
         dispatch({
           type: ACTIONS.POPULAR,
@@ -42,7 +45,7 @@ const TopRated = () => {
             result:
               state.count == 1
                 ? response.data.results
-                : [...state.topRatedList, ...response.data.results],
+                : [...state.popularList, ...response.data.results],
           },
         });
       } catch (error) {
@@ -61,31 +64,29 @@ const TopRated = () => {
   return (
     <div id="popular-detail">
       <div className="poster-grid">
-        {state.topRatedList.map((res) => {
-          // console.log(res)
-          const date = new Date(res.release_date);
+        {state.popularList.map((res: any) => {
+          const date = new Date(res.first_air_date);
           const poster = `https://image.tmdb.org/t/p/original${res.poster_path}`;
-          const movieLink = `/movie/${res.id}`;
+          const movieLink = `/tv/${res.id}`;
           return (
             <div key={res.id}>
-              <Link to={movieLink} className="poster-card">
+              <div onClick={() => navigate(movieLink)} className="poster-card">
                 <img
                   className="poster img-with-fb no-js-1MJNcPZy46hIy2CmSqOeru0yr5C"
                   src={poster}
-                  cached="true"
                   loading="lazy"
                   alt="Poster for Venom: Let There Be Carnage"
                 />
                 <div className="overlay-text">
                   <div className="overlay-text-rating">HD</div>
                 </div>
-                <p className="title">{res.original_title}</p>
+                <p className="title">{res.original_name}</p>
                 <div className="meta">
                   {date.getFullYear()} <i className="dot"></i>{" "}
                   {res.vote_average}
                   <i className="type">Movie</i>
                 </div>
-              </Link>
+              </div>
             </div>
           );
         })}
@@ -95,4 +96,4 @@ const TopRated = () => {
   );
 };
 
-export default TopRated;
+export default Popular;

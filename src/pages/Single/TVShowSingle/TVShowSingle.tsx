@@ -1,10 +1,10 @@
 import { useLocation } from "react-router-dom";
-import React, { useState, useEffect, useReducer, useRef } from "react";
+import { useState, useEffect, useReducer, useRef } from "react";
 import TMDB_Config from "../../../database/TMDB_Config";
 import "./TVShowSingle.css";
 import VideoPlayer from "../../../components/VideoPlayer/VideoPlayer";
 import axios from "axios";
-const scrollToRef = (ref) => window.scrollTo(0, ref.current.offsetTop);
+const scrollToRef = (ref: any) => window.scrollTo(0, ref.current.offsetTop);
 
 const images = {
   poster: "../../images/poster-not-available.jpg",
@@ -15,7 +15,7 @@ const ACTIONS = {
   SET_SEASON_DETAIL: "season-detail",
 };
 
-function reducer(state, action) {
+function reducer(state: any, action: any) {
   switch (action.type) {
     case ACTIONS.SET_MOVIE_DETAIL:
       return {
@@ -33,7 +33,7 @@ function reducer(state, action) {
   }
 }
 
-const TVShowSingle = () => {
+export const TVShowSingle = () => {
   const [state, dispatch] = useReducer(reducer, {
     movieDetail: {},
     seasonDetail: [],
@@ -42,8 +42,6 @@ const TVShowSingle = () => {
 
   const [tabMenu, setTabMenu] = useState(1);
   const [movieGenres, setmovieGenres] = useState([]);
-  const [runTime, setrunTime] = useState(0);
-  // const [seasonDetail, setSeasonDetail] = useState("")
   const [openModal, setOpenModal] = useState(false);
   const [currentPlaying, setCurrentPlaying] = useState({
     season: 0,
@@ -93,22 +91,16 @@ const TVShowSingle = () => {
     getSeasonDetail();
   }, [tabMenu]);
 
-  const minutesToHours = () => {
-    let Hours = Math.floor(runTime / 60);
-    let minutes = runTime % 60;
-    return `${Hours}h ${minutes}min`;
-  };
-
   const releaseDate = () => {
     const date = new Date(state.movieDetail.first_air_date);
     let result = date.toString().split(" ");
     return `${result[1]} ${result[2]}th ${result[3]}`;
   };
 
-  const handlePlay = (ids) => {
+  const handlePlay = (ids: string) => {
     const data = ids.split("|");
-    const season = data[0];
-    const episode = data[1];
+    const season = Number(data[0]);
+    const episode = Number(data[1]);
 
     setCurrentPlaying({
       season,
@@ -125,7 +117,6 @@ const TVShowSingle = () => {
         <img
           className="banner-img img-with-fb no-js-lNyLSOKMMeUPr1RsL4KcRuIXwHt"
           src={`https://image.tmdb.org/t/p/original/${state.movieDetail.backdrop_path}`}
-          cached="true"
           loading="lazy"
           alt=""
         />
@@ -135,7 +126,6 @@ const TVShowSingle = () => {
         <img
           className="poster img-with-fb no-js-rjkmN1dniUHVYAtwuV3Tji7FsDO"
           src={`https://image.tmdb.org/t/p/w500/${state.movieDetail.poster_path}`}
-          cached="true"
           loading="lazy"
           alt={state.movieDetail.original_title}
         />
@@ -144,7 +134,7 @@ const TVShowSingle = () => {
           <div className="info">
             <div className="video-p-detail">
               <div className="video-p-name">
-                {movieGenres.map((res) => {
+                {movieGenres.map((res: any) => {
                   return (
                     <a
                       className="video-p-genre"
@@ -185,7 +175,7 @@ const TVShowSingle = () => {
       <nav className="tabs box-padding mt-25 series-season" id="season">
         <h2>Season</h2>
         <ul>
-          {[...Array(state.movieDetail.number_of_seasons)].map((e, i) => {
+          {[...Array(state.movieDetail.number_of_seasons)].map((_, i) => {
             return (
               <span
                 key={i + 1}
@@ -202,7 +192,7 @@ const TVShowSingle = () => {
       </nav>
 
       <div className="tvShowsEpisodes box-padding">
-        {state.seasonDetail.map((res) => {
+        {state.seasonDetail.map((res: any) => {
           const poster = `${state.baseURL}${res.still_path}`;
 
           return (
@@ -231,10 +221,8 @@ const TVShowSingle = () => {
       <VideoPlayer
         open={openModal}
         onClose={() => setOpenModal(false)}
-        vidSrc={`https://vidsrc.to/embed/tv/${currentPlaying.id}/${currentPlaying.season}/${currentPlaying.episode}`}
+        vidSrc={`https://vidsrc.cc/v2/embed/tv/${currentPlaying.id}/${currentPlaying.season}/${currentPlaying.episode}`}
       />
     </div>
   );
 };
-
-export default TVShowSingle;

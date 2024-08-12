@@ -1,10 +1,10 @@
 import { Link } from "react-router-dom";
-import React, { useState } from "react";
+import { useState } from "react";
 import "./Movies.css";
-import Popular from "./Popular/Popular";
-import Upcoming from "./Upcoming/Upcoming";
-import TopRated from "./Top/Top";
-import Genre from "./Genre/Genre";
+import { Popular } from "./Popular";
+import { Upcoming } from "./Upcoming";
+import { TopRated } from "./Top";
+import { Genre } from "./Genre";
 
 const Movies = () => {
   const [tabMenu, setTabMenu] = useState("popular");
